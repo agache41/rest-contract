@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.1"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="test" transaction-type="RESOURCE_LOCAL">
+        <description>Hibernate Unit Test Persistence Unit</description>
+        <jar-file>..\rest-contract-core\target\rest-contract-core-1.0.0-tests.jar</jar-file>
+        <!--        <class>io.github.agache41.rest.contract.entities.BaseEntity.java</class>-->
+        <!--        <class>io.github.agache41.rest.contract.entities.Collection2Entity.java</class>-->
+        <!--        <class>io.github.agache41.rest.contract.entities.CollectionEntity.java</class>-->
+        <!--        <class>io.github.agache41.rest.contract.entities.EmbeddedIdModell.java</class>-->
+        <!--        <class>io.github.agache41.rest.contract.entities.EmbeddedIdSubModell1.java</class>-->
+        <!--        <class>io.github.agache41.rest.contract.entities.EmbeddedIdSubModell2.java</class>-->
+        <!--        <class>io.github.agache41.rest.contract.entities.EmbeddedIdSubModell3.java</class>-->
+        <!--        <class>io.github.agache41.rest.contract.entities.EmbeddedKeys.java</class>-->
+        <!--        <class>io.github.agache41.rest.contract.entities.EmbeddedKeys2.java</class>-->
+        <!--        <class>io.github.agache41.rest.contract.entities.Map2Entity.java</class>-->
+        <!--        <class>io.github.agache41.rest.contract.entities.MapEntity.java</class>-->
+        <!--        <class>io.github.agache41.rest.contract.entities.Modell.java</class>-->
+        <!--        <class>io.github.agache41.rest.contract.entities.Modell2.java</class>-->
+        <!--        <class>io.github.agache41.rest.contract.entities.ModellFks.java</class>-->
+        <!--        <class>io.github.agache41.rest.contract.entities.SubModell.java</class>-->
+        <!--        <class>io.github.agache41.rest.contract.entities.SubModellAFks.java</class>-->
+        <!--        <class>io.github.agache41.rest.contract.entities.SubModellBFks.java</class>-->
+        <!--        <class>io.github.agache41.rest.contract.entities.Value2Entity.java</class>-->
+        <!--        <class>io.github.agache41.rest.contract.entities.Value2EntityTO.java</class>-->
+        <!--        <class>io.github.agache41.rest.contract.entities.ValueEntity.java</class>-->
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+            <property name="hibernate.transaction.jta.platform"
+                      value="org.hibernate.engine.transaction.jta.platform.internal.JBossStandAloneJtaPlatform"/>
+
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+
+            <!-- Set this false to reduce unnecessary logging-->
+            <property name="hibernate.show_sql" value="false"/>
+
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.highlight_sql" value="true"/>
+            <property name="hibernate.query.startup_check" value="false"/>
+            <property name="hibernate.generate_statistics" value="false"/>
+            <property name="hibernate.cache.use_second_level_cache" value="false"/>
+            <property name="hibernate.cache.use_query_cache" value="false"/>
+            <property name="hibernate.cache.use_structured_entries" value="false"/>
+            <property name="hibernate.jdbc.batch_size" value="20"/>
+            <property name="hibernate.connection.autocommit" value="true"/>
+
+            <property name="hibernate.hikari.minimumIdle" value="5"/>
+            <property name="hibernate.hikari.maximumPoolSize" value="15"/>
+            <property name="hibernate.hikari.idleTimeout" value="30000"/>
+        </properties>
+
+    </persistence-unit>
+</persistence>
