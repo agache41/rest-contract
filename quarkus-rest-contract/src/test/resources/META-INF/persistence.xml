@@ -4,7 +4,7 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
     <persistence-unit name="test" transaction-type="RESOURCE_LOCAL">
         <description>Hibernate Unit Test Persistence Unit</description>
-        <jar-file>..\rest-contract-core\target\rest-contract-core-1.0.0-tests.jar</jar-file>
+        <jar-file>../rest-contract-core/target/rest-contract-core-1.0.0-tests.jar</jar-file>
         <!--        <class>io.github.agache41.rest.contract.entities.BaseEntity.java</class>-->
         <!--        <class>io.github.agache41.rest.contract.entities.Collection2Entity.java</class>-->
         <!--        <class>io.github.agache41.rest.contract.entities.CollectionEntity.java</class>-->
