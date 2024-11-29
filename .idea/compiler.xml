@@ -18,6 +18,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="generic-rest-jpa" options="-parameters" />
       <module name="quarkus" options="-parameters" />
+      <module name="quarkus-integration-model" options="-parameters" />
       <module name="quarkus-rest-contract" options="-parameters" />
       <module name="rest-contract" options="-parameters" />
       <module name="rest-contract-core" options="-parameters" />
