@@ -17,6 +17,7 @@
 
 package io.github.agache41.rest.contract.dataAccess;
 
+import io.github.agache41.rest.contract.entities.RestContractCoreConstants;
 import io.github.agache41.rest.contract.update.SelfTransferObject;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -28,7 +29,7 @@ public class AbstractLocalH2DataAccess<ENTITY extends PrimaryKey<PK> & SelfTrans
 
     private static EntityManagerFactory getEntityManagerFactory() {
         if (entityManagerFactory == null)
-            entityManagerFactory = Persistence.createEntityManagerFactory("test");
+            entityManagerFactory = Persistence.createEntityManagerFactory(RestContractCoreConstants.PERSISTENCE_UNIT);
         return entityManagerFactory;
     }
 

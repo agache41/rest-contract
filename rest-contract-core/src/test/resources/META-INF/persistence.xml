@@ -2,7 +2,7 @@
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.1"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-    <persistence-unit name="test" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="rest-contract-core-test" >
         <description>Hibernate Unit Test Persistence Unit</description>
         <jar-file>../rest-contract-core/target/rest-contract-core-1.0.0-tests.jar</jar-file>
         <!--        <class>io.github.agache41.rest.contract.entities.BaseEntity.java</class>-->
@@ -32,8 +32,8 @@
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1"/>
             <property name="javax.persistence.jdbc.user" value="sa"/>
             <property name="javax.persistence.jdbc.password" value=""/>
-            <property name="hibernate.transaction.jta.platform"
-                      value="org.hibernate.engine.transaction.jta.platform.internal.JBossStandAloneJtaPlatform"/>
+<!--            <property name="hibernate.transaction.jta.platform"-->
+<!--                      value="org.hibernate.engine.transaction.jta.platform.internal.JBossStandAloneJtaPlatform"/>-->
 
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
 
