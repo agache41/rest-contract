@@ -18,9 +18,6 @@
 package io.github.agache41.rest.contract.dataAccess;
 
 import io.github.agache41.rest.contract.utils.ReflectionUtils;
-//import jakarta.enterprise.inject.spi.InjectionPoint;
-//import jakarta.inject.Inject;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
@@ -42,16 +39,6 @@ public class Creator<T> {
      * </pre>
      */
     protected final Constructor<T> noArgsConstructor;
-
-    /**
-     * Instantiates a new Creator.
-     *
-     * @param ip the ip
-     */
-//    @Inject
-//    public Creator(final InjectionPoint ip) {
-//        this(((Class<T>) (((ParameterizedType) ip.getType()).getActualTypeArguments()[0])));//
-//    }
 
     /**
      * Instantiates a new Creator.

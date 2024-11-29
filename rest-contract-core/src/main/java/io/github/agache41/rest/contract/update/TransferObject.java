@@ -18,7 +18,6 @@
 package io.github.agache41.rest.contract.update;
 
 import io.github.agache41.rest.contract.update.reflector.ClassReflector;
-//import jakarta.persistence.Transient;
 
 /**
  * The interface Transfer object.
@@ -38,7 +37,6 @@ public interface TransferObject<TO extends TransferObject<TO, ENTITY>, ENTITY> {
      * @param context the context
      * @return entity entity
      */
-    //@Transient
     default ENTITY create(final ENTITY entity,
                           final Object context) {
         this.update(entity, context);
@@ -55,7 +53,6 @@ public interface TransferObject<TO extends TransferObject<TO, ENTITY>, ENTITY> {
      * @param context the context
      * @return entity boolean
      */
-    //@Transient
     default boolean update(final ENTITY entity,
                            final Object context) {
         return ClassReflector.ofObject(this, entity)
@@ -71,7 +68,6 @@ public interface TransferObject<TO extends TransferObject<TO, ENTITY>, ENTITY> {
      * @param context the context
      * @return to to
      */
-    //@Transient
     default TO render(final ENTITY entity,
                       final Object context) {
         ClassReflector.ofObject(this, entity)
@@ -85,7 +81,6 @@ public interface TransferObject<TO extends TransferObject<TO, ENTITY>, ENTITY> {
      * @param source the source
      * @return the boolean
      */
-    //@Transient
     default boolean updateEquals(final Object source) {
         return ClassReflector.ofObject(this)
                              .areEqual(this, source);

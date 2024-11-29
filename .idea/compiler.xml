@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="rest-contract-core" />
+        <module name="quarkus-integration-model" />
         <module name="quarkus-rest-contract" />
         <module name="generic-rest-jpa" />
         <module name="quarkus" />
