@@ -7,6 +7,8 @@
     <file url="file://$PROJECT_DIR$/quarkus-rest-contract/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/rest-contract-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/rest-contract-core/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-integration-model/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-integration-model/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>

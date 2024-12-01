@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="rest-contract-core" />
         <module name="quarkus-integration-model" />
+        <module name="spring-integration-model" />
         <module name="quarkus-rest-contract" />
         <module name="generic-rest-jpa" />
         <module name="quarkus" />
@@ -23,6 +24,7 @@
       <module name="quarkus-rest-contract" options="-parameters" />
       <module name="rest-contract" options="-parameters" />
       <module name="rest-contract-core" options="-parameters" />
+      <module name="spring-integration-model" options="-parameters" />
     </option>
   </component>
 </project>

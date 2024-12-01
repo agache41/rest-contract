@@ -22,10 +22,10 @@
     <parent>
         <groupId>io.github.agache41</groupId>
         <artifactId>rest-contract</artifactId>
-        <version>1.0.0</version>
+        <version>${revision}</version>
     </parent>
     <artifactId>quarkus-rest-contract</artifactId>
-    <version>1.0.0</version>
+    <version>${revision}</version>
     <packaging>jar</packaging>
 
     <name>Generic REST Resources Service API and Data Access over JPA for JEE / Quarkus</name>
@@ -68,7 +68,7 @@
         <dependency>
             <groupId>io.github.agache41</groupId>
             <artifactId>rest-contract-core</artifactId>
-            <version>1.0.0</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>jakarta.enterprise</groupId>
@@ -110,7 +110,7 @@
         <dependency>
             <groupId>io.github.agache41</groupId>
             <artifactId>rest-contract-core</artifactId>
-            <version>1.0.0</version>
+            <version>${revision}</version>
             <classifier>tests</classifier>
             <type>test-jar</type>
             <scope>test</scope>

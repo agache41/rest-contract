@@ -22,7 +22,7 @@
 
     <groupId>io.github.agache41</groupId>
     <artifactId>rest-contract</artifactId>
-    <version>1.0.0</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <name>Rest Contract</name>
@@ -51,6 +51,8 @@
     </scm>
 
     <properties>
+        <!-- Unique entry point for version number management -->
+        <revision>1.0.0</revision>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.parameters>true</maven.compiler.parameters>
@@ -61,6 +63,7 @@
         <module>rest-contract-core</module>
         <module>quarkus-rest-contract</module>
         <module>quarkus-integration-model</module>
+        <module>spring-integration-model</module>
     </modules>
 
     <dependencies>
@@ -101,8 +104,8 @@
                             <goal>jar</goal>
                         </goals>
                         <configuration>
-<!--                            todo: fix javadoc-->
-<!--                            <failOnWarnings>true</failOnWarnings>-->
+                            <!--                            todo: fix javadoc-->
+                            <!--                            <failOnWarnings>true</failOnWarnings>-->
                             <failOnWarnings>false</failOnWarnings>
                         </configuration>
                     </execution>

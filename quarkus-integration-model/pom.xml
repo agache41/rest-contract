@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
+    <parent>
+        <groupId>io.github.agache41</groupId>
+        <artifactId>rest-contract</artifactId>
+        <version>${revision}</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>io.github.agache41</groupId>
     <artifactId>quarkus-integration-model</artifactId>
-    <version>1.0.0</version>
+    <version>${revision}</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -91,7 +94,7 @@
         <dependency>
             <groupId>io.github.agache41</groupId>
             <artifactId>quarkus-rest-contract</artifactId>
-            <version>${quarkus-rest-contract.version}</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -120,7 +123,7 @@
         <dependency>
             <groupId>io.github.agache41</groupId>
             <artifactId>rest-contract-core</artifactId>
-            <version>${quarkus-rest-contract.version}</version>
+            <version>${revision}</version>
             <classifier>tests</classifier>
             <type>test-jar</type>
 <!--            <scope>test</scope>-->

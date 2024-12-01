@@ -140,14 +140,14 @@ public class DataBinder<TO extends PrimaryKey<PK> & TransferObject<TO, ENTITY>, 
      *
      * @param firstResult the first result
      * @param maxResults  the max results
-     * @param uriInfo     the uri info
+     * @param requestParameters     the uri info
      * @return the list
      */
     public List<TO> listAll(final Integer firstResult,
                             final Integer maxResults,
-                            final UriInfo uriInfo) {
+                            final Map<String, List<String>> requestParameters) {
         return this.render(this.getDataAccess()
-                               .listAll(firstResult, maxResults, uriInfo));
+                               .listAll(firstResult, maxResults, requestParameters));
     }
 
     /**

@@ -28,7 +28,7 @@ import jakarta.inject.Named;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.*;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.core.UriInfo;
+
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.ParameterizedType;
@@ -151,7 +151,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
     @Inject
     public DataAccess(final InjectionPoint ip) {
         this(((Class<ENTITY>) (((ParameterizedType) ip.getType()).getActualTypeArguments()[0])),//
-             ((Class<PK>) (((ParameterizedType) ip.getType()).getActualTypeArguments()[1])));//
+                ((Class<PK>) (((ParameterizedType) ip.getType()).getActualTypeArguments()[1])));//
     }
 
     /**
@@ -162,8 +162,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param type    the type of the persisting Object
      * @param keyType the type of the persisting Object Primary Key
      */
-    public DataAccess(final Class<ENTITY> type,
-                      final Class<PK> keyType) {
+    public DataAccess(final Class<ENTITY> type, final Class<PK> keyType) {
         this.type = type;
         this.noArgsConstructor = ReflectionUtils.getNoArgsConstructor(type);
         this.keyType = keyType;
@@ -198,8 +197,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @return the entity for the primary key or null if not found. If no entity is found and expected is set to true ExpectedException is thrown.
      * @see jakarta.persistence.EntityManager#find(Class, Object) jakarta.persistence.EntityManager#find(Class, Object)jakarta.persistence.EntityManager#find(Class, Object)jakarta.persistence.EntityManager#find(Class, Object)jakarta.persistence.EntityManager#find(Class, Object)jakarta.persistence.EntityManager#find(Class, Object)jakarta.persistence.EntityManager#find(Class, Object)jakarta.persistence.EntityManager#find(Class, Object)jakarta.persistence.EntityManager#find(Class, Object)jakarta.persistence.EntityManager#find(Class, Object)
      */
-    public ENTITY findById(final PK id,
-                           final boolean expected) {
+    public ENTITY findById(final PK id, final boolean expected) {
         if (this.namedQueries.contains(this.findByIdNamedQuery)) {
             return this.em()
                        .createNamedQuery(this.findByIdNamedQuery, this.type)
@@ -235,8 +233,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param value  the value to filter for
      * @return the persisted entity, if any or ExpectedException if no entity is found
      */
-    public ENTITY findByColumnEqualsValue(final String column,
-                                          final Object value) {
+    public ENTITY findByColumnEqualsValue(final String column, final Object value) {
         return this.findByColumnEqualsValue(column, value, true, true);
     }
 
@@ -251,10 +248,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param expected specifies if an entity should be returned, or else a ExpectedException will be thrown
      * @return the persisted entity
      */
-    public ENTITY findByColumnEqualsValue(final String column,
-                                          final Object value,
-                                          final boolean notNull,
-                                          final boolean expected) {
+    public ENTITY findByColumnEqualsValue(final String column, final Object value, final boolean notNull, final boolean expected) {
         try {
             final CriteriaQuery<ENTITY> query = this.query();
             final Root<ENTITY> entity = this.entity(query);
@@ -280,10 +274,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param expected specifies if an entity should be returned, or else a ExpectedException will be thrown
      * @return the persisted entity
      */
-    public ENTITY findByColumnLikeValue(final String column,
-                                        final String value,
-                                        final boolean notNull,
-                                        final boolean expected) {
+    public ENTITY findByColumnLikeValue(final String column, final String value, final boolean notNull, final boolean expected) {
         try {
             final CriteriaQuery<ENTITY> query = this.query();
             final Root<ENTITY> entity = this.entity(query);
@@ -308,17 +299,15 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      *
      * @param firstResult the first result
      * @param maxResults  the max results
-     * @param uriInfo     the uri info
+     * @param requestParameters     the uri info
      * @return all the entities in a Stream&#x3C;ENTITY&#x3E;
      */
-    public List<ENTITY> listAll(final int firstResult,
-                                final int maxResults,
-                                final UriInfo uriInfo) {
+    public List<ENTITY> listAll(final int firstResult, final int maxResults, final Map<String, List<String>> requestParameters) {
         final TypedQuery<ENTITY> typedQuery;
         if (this.namedQueries.contains(this.listAllNamedQuery)) {
             typedQuery = this.em()
                              .createNamedQuery(this.listAllNamedQuery, this.type);
-            final Map<String, List<Object>> filterQueryParams = this.filterQueryParams(uriInfo);
+            final Map<String, List<Object>> filterQueryParams = this.filterQueryParams(requestParameters);
             if (!filterQueryParams.isEmpty()) {
                 filterQueryParams.entrySet()
                                  .stream()
@@ -328,11 +317,11 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
             final CriteriaQuery<ENTITY> criteriaQuery = this.query();
             final Root<ENTITY> entity = this.entity(criteriaQuery);
             CriteriaQuery<ENTITY> select = criteriaQuery.select(entity);
-            final Map<String, List<Object>> filterQueryParams = this.filterQueryParams(uriInfo);
+            final Map<String, List<Object>> filterQueryParams = this.filterQueryParams(requestParameters);
             if (!filterQueryParams.isEmpty()) {
                 select = select.where(this.in(filterQueryParams, entity));
             }
-            final LinkedHashMap<String, Boolean> orderBy = this.orderByQueryParams(uriInfo);
+            final LinkedHashMap<String, Boolean> orderBy = this.orderByQueryParams(requestParameters);
             select.orderBy(orderBy.entrySet()
                                   .stream()
                                   .map(entry -> {
@@ -393,10 +382,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param maxResults   the max results
      * @return entities in a Stream&#x3C;ENTITY&#x3E;
      */
-    public List<ENTITY> listByColumnEqualsValue(final String filterColumn,
-                                                final Object value,
-                                                final int firstResult,
-                                                final int maxResults) {
+    public List<ENTITY> listByColumnEqualsValue(final String filterColumn, final Object value, final int firstResult, final int maxResults) {
         return this.listByColumnEqualsValue(filterColumn, value, firstResult, maxResults, true);
     }
 
@@ -412,11 +398,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param notNull     specifies if the value can be null, and in this case the null can be used as a value.
      * @return entities in a Stream&#x3C;ENTITY&#x3E;
      */
-    public List<ENTITY> listByColumnEqualsValue(final String column,
-                                                final Object value,
-                                                final int firstResult,
-                                                final int maxResults,
-                                                final boolean notNull) {
+    public List<ENTITY> listByColumnEqualsValue(final String column, final Object value, final int firstResult, final int maxResults, final boolean notNull) {
         final CriteriaQuery<ENTITY> query = this.query();
         final Root<ENTITY> entity = this.entity(query);
         return this.em()
@@ -444,9 +426,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param maxResults  the max results
      * @return the persisted entity
      */
-    public List<ENTITY> listByContentEquals(final Map<String, Object> mapValues,
-                                            final int firstResult,
-                                            final int maxResults) {
+    public List<ENTITY> listByContentEquals(final Map<String, Object> mapValues, final int firstResult, final int maxResults) {
         final CriteriaQuery<ENTITY> query = this.query();
         final Root<ENTITY> entity = this.entity(query);
         return this.em()
@@ -469,10 +449,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param maxResults  the max results
      * @return entities in a Stream&#x3C;ENTITY&#x3E;
      */
-    public List<ENTITY> listByColumnLikeValue(final String column,
-                                              final String value,
-                                              final int firstResult,
-                                              final int maxResults) {
+    public List<ENTITY> listByColumnLikeValue(final String column, final String value, final int firstResult, final int maxResults) {
         return this.listByColumnLikeValue(column, value, firstResult, maxResults, true);
     }
 
@@ -485,13 +462,10 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param column     the column to value for
      * @param value      the value to compare
      * @param maxResults the max results
-     * @param uriInfo    the uri info
+     * @param requestParameters    the uri info
      * @return entities in a Stream&#x3C;ENTITY&#x3E;
      */
-    public List<String> autocompleteByColumnLikeValue(final String column,
-                                                      final String value,
-                                                      final int maxResults,
-                                                      final UriInfo uriInfo) {
+    public List<String> autocompleteByColumnLikeValue(final String column, final String value, final int maxResults, final Map<String, List<String>> requestParameters) {
 
         final CriteriaQuery<String> query = this.cb()
                                                 .createQuery(String.class);
@@ -500,7 +474,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
         return this.em()
                    .createQuery(query.select(attr)
                                      .distinct(true)
-                                     .where(this.filterQueryParamsAnd(this.like(column, value, true, entity), uriInfo, entity))
+                                     .where(this.filterQueryParamsAnd(this.like(column, value, true, entity), requestParameters, entity))
                                      .orderBy(this.cb()
                                                   .asc(attr)))
                    .setMaxResults(maxResults)
@@ -515,8 +489,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param name   the name
      * @return the path
      */
-    protected <Y> Path<Y> attr(final Root<ENTITY> entity,
-                               final String name) {
+    protected <Y> Path<Y> attr(final Root<ENTITY> entity, final String name) {
         if (!name.contains(".")) {
             return entity.get(name);
         }
@@ -543,13 +516,10 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param column     the column
      * @param value      the value
      * @param maxResults the max results
-     * @param uriInfo    the uri info
+     * @param requestParameters    the uri info
      * @return the stream
      */
-    public List<IdGroup<PK>> autocompleteIdsByColumnLikeValue(final String column,
-                                                              final String value,
-                                                              final int maxResults,
-                                                              final UriInfo uriInfo) {
+    public List<IdGroup<PK>> autocompleteIdsByColumnLikeValue(final String column, final String value, final int maxResults, final Map<String, List<String>> requestParameters) {
 
         final CriteriaQuery<Tuple> query = this.cb()
                                                .createTupleQuery();
@@ -558,7 +528,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
         final Path<String> attr = this.attr(entity, column);
         final CriteriaQuery<Tuple> multiselect = query.multiselect(id, attr);
         return this.em()
-                   .createQuery(multiselect.where(this.filterQueryParamsAnd(this.like(column, value, true, entity), uriInfo, entity))
+                   .createQuery(multiselect.where(this.filterQueryParamsAnd(this.like(column, value, true, entity), requestParameters, entity))
                                            .orderBy(this.cb()
                                                         .asc(attr), this.cb()
                                                                         .asc(id)))
@@ -576,15 +546,13 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * Generates a filter expression from the query params that can be chained.
      *
      * @param expression the expression
-     * @param uriInfo    the uri info
+     * @param requestParameters    the uri info
      * @param entity     the entity
      * @return the expression
      */
-    protected Expression<Boolean> filterQueryParamsAnd(final Expression<Boolean> expression,
-                                                       final UriInfo uriInfo,
-                                                       final Root<ENTITY> entity) {
+    protected Expression<Boolean> filterQueryParamsAnd(final Expression<Boolean> expression, final Map<String, List<String>> requestParameters, final Root<ENTITY> entity) {
 
-        final Map<String, List<Object>> filterQueryParams = this.filterQueryParams(uriInfo);
+        final Map<String, List<Object>> filterQueryParams = this.filterQueryParams(requestParameters);
         if (filterQueryParams.isEmpty()) {
             return expression;
         }
@@ -595,30 +563,28 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
     /**
      * Generates a filter expression from the query params.
      *
-     * @param uriInfo the uri info
+     * @param requestParameters the uri info
      * @return the map
      */
-    protected Map<String, List<Object>> filterQueryParams(final UriInfo uriInfo) {
-        if (uriInfo == null) {
+    protected Map<String, List<Object>> filterQueryParams(final Map<String, List<String>> requestParameters) {
+        if (requestParameters == null || requestParameters.isEmpty()) {
             return Collections.emptyMap();
         }
-        return uriInfo.getQueryParameters()
-                      .entrySet()
-                      .stream()
-                      .filter(this.notReservedNames)
-                      .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue()
-                                                                                 .stream()
-                                                                                 .map(string -> (Object) string)
-                                                                                 .collect(toList())));
+        return requestParameters.entrySet()
+                                .stream()
+                                .filter(this.notReservedNames)
+                                .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue()
+                                                                                           .stream()
+                                                                                           .map(string -> (Object) string)
+                                                                                           .collect(toList())));
     }
 
-    private LinkedHashMap<String, Boolean> orderByQueryParams(final UriInfo uriInfo) {
+    private LinkedHashMap<String, Boolean> orderByQueryParams(final Map<String, List<String>> requestParameters) {
         final LinkedHashMap<String, Boolean> result = new LinkedHashMap<>();
-        if (uriInfo == null) {
+        if (requestParameters == null || requestParameters.isEmpty()) {
             return result;
         }
-        final List<String> orderBy = uriInfo.getQueryParameters()
-                                            .get("orderBy");
+        final List<String> orderBy = requestParameters.get("orderBy");
         if (orderBy == null || orderBy.isEmpty()) {
             return result;
         }
@@ -646,11 +612,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param notNull     specifies if the value can be null, and in this case the null can be used as a value.
      * @return entities in a Stream&#x3C;ENTITY&#x3E;
      */
-    public List<ENTITY> listByColumnLikeValue(final String column,
-                                              final String value,
-                                              final int firstResult,
-                                              final int maxResults,
-                                              final boolean notNull) {
+    public List<ENTITY> listByColumnLikeValue(final String column, final String value, final int firstResult, final int maxResults, final boolean notNull) {
         final CriteriaQuery<ENTITY> query = this.query();
         final Root<ENTITY> entity = this.entity(query);
         return this.em()
@@ -672,10 +634,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param maxResults  the max results
      * @return entities in a Stream&#x3C;ENTITY&#x3E;
      */
-    public List<ENTITY> listByColumnInValues(final String column,
-                                             final Collection<? extends Object> values,
-                                             final int firstResult,
-                                             final int maxResults) {
+    public List<ENTITY> listByColumnInValues(final String column, final Collection<? extends Object> values, final int firstResult, final int maxResults) {
         return this.listByColumnInValues(column, values, firstResult, maxResults, true);
     }
 
@@ -691,11 +650,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param notNull     if list of filtered values can be null : specifies if the values value can be null, and in this case the null is used as values.
      * @return entities in a Stream&#x3C;ENTITY&#x3E;
      */
-    public List<ENTITY> listByColumnInValues(final String column,
-                                             final Collection<? extends Object> values,
-                                             final int firstResult,
-                                             final int maxResults,
-                                             final boolean notNull) {
+    public List<ENTITY> listByColumnInValues(final String column, final Collection<? extends Object> values, final int firstResult, final int maxResults, final boolean notNull) {
         final CriteriaQuery<ENTITY> query = this.query();
         final Root<ENTITY> entity = this.entity(query);
         return this.em()
@@ -722,9 +677,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param maxResults  the max results
      * @return the persisted entity
      */
-    public List<ENTITY> listByContentInValues(final Map<String, List<Object>> mapValues,
-                                              final int firstResult,
-                                              final int maxResults) {
+    public List<ENTITY> listByContentInValues(final Map<String, List<Object>> mapValues, final int firstResult, final int maxResults) {
         final CriteriaQuery<ENTITY> query = this.query();
         final Root<ENTITY> entity = this.entity(query);
         return this.em()
@@ -786,9 +739,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param value   the value to equal
      * @param notNull specifies if the value can be null, and in this case the null is used as value.
      */
-    public void removeByColumnEqualsValue(final String column,
-                                          final Object value,
-                                          final boolean notNull) {
+    public void removeByColumnEqualsValue(final String column, final Object value, final boolean notNull) {
         this.listByColumnEqualsValue(column, value, 0, Integer.MAX_VALUE, true)
             .forEach(this::remove);
     }
@@ -802,9 +753,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param values  the list of filtered values
      * @param notNull if list of filtered values can be null :  specifies if the values value can be null, and in this case the null is used as values.
      */
-    public void removeByColumnInValues(final String column,
-                                       final Collection<? extends Object> values,
-                                       final boolean notNull) {
+    public void removeByColumnInValues(final String column, final Collection<? extends Object> values, final boolean notNull) {
         this.listByColumnInValues(column, values, 0, Integer.MAX_VALUE, notNull)
             .forEach(this::remove);
     }
@@ -895,10 +844,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param entity  the entity root
      * @return the criteria builder expression
      */
-    protected Expression<Boolean> equals(final String column,
-                                         final Object value,
-                                         final boolean notNull,
-                                         final Root<ENTITY> entity) {
+    protected Expression<Boolean> equals(final String column, final Object value, final boolean notNull, final Root<ENTITY> entity) {
         if (this.applyFilter(value, notNull)) {
             return this.cb()
                        .equal(this.attr(entity, column), value);
@@ -920,8 +866,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param entity the entity root
      * @return the criteria builder expression
      */
-    protected Expression<Boolean> equals(final Map<String, Object> values,
-                                         final Root<ENTITY> entity) {
+    protected Expression<Boolean> equals(final Map<String, Object> values, final Root<ENTITY> entity) {
         return values.entrySet()
                      .stream()
                      .filter(this.notReservedNames)
@@ -942,10 +887,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param entity  the entity root
      * @return the criteria builder expression
      */
-    protected Expression<Boolean> like(final String column,
-                                       final String value,
-                                       final boolean notNull,
-                                       final Root<ENTITY> entity) {
+    protected Expression<Boolean> like(final String column, final String value, final boolean notNull, final Root<ENTITY> entity) {
         if (this.applyFilter(value, notNull)) {
             return this.cb()
                        .like(this.attr(entity, column), value);
@@ -966,10 +908,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param entity  the entity root
      * @return the criteria builder expression
      */
-    protected Expression<Boolean> in(final String column,
-                                     final Collection<? extends Object> values,
-                                     final boolean notNull,
-                                     final Root<ENTITY> entity) {
+    protected Expression<Boolean> in(final String column, final Collection<? extends Object> values, final boolean notNull, final Root<ENTITY> entity) {
         if (this.applyFilter(values, notNull)) {
             return this.attr(entity, column)
                        .in(values);
@@ -992,8 +931,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param entity the entity root
      * @return the criteria builder expression
      */
-    protected Expression<Boolean> in(final Map<String, List<Object>> values,
-                                     final Root<ENTITY> entity) {
+    protected Expression<Boolean> in(final Map<String, List<Object>> values, final Root<ENTITY> entity) {
         return values.entrySet()
                      .stream()
                      .filter(this.notReservedNames)
@@ -1028,8 +966,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param expected if null is expected
      * @return the input if not null. If null is found and expected is true an ExpectedException is thrown.
      */
-    protected ENTITY assertNotNull(final ENTITY source,
-                                   final boolean expected) {
+    protected ENTITY assertNotNull(final ENTITY source, final boolean expected) {
         if (expected && null == source) {
             throw new ExpectedException(this.name + ": Entity was not found");
         }
@@ -1046,8 +983,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param expected  if exception was expected or not and should be rethrown
      * @return the t
      */
-    protected <T> T resultAs(final NoResultException exception,
-                             final boolean expected) {
+    protected <T> T resultAs(final NoResultException exception, final boolean expected) {
         if (expected) {
             throw new ExpectedException(this.name + ": Entity was not found", exception);
         }
@@ -1064,8 +1000,7 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param notNull the not null
      * @return the boolean
      */
-    protected <R> boolean applyFilter(final R value,
-                                      final boolean notNull) {
+    protected <R> boolean applyFilter(final R value, final boolean notNull) {
         if (null == value) {
             if (notNull) {
                 throw new UnexpectedException(this.name + ": Expecting not null value.");
@@ -1156,7 +1091,8 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * Begin transaction. To be used only in non server mode!
      */
     public void beginTransaction() {
-        final EntityTransaction transaction = this.em.getTransaction();
+        final EntityTransaction transaction = this.em()
+                                                  .getTransaction();
         transaction.begin();
     }
 
@@ -1164,9 +1100,12 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * Commit transaction.To be used only in non server mode!
      */
     public void commitTransaction() {
-        this.em.flush();
-        final EntityTransaction transaction = this.em.getTransaction();
+        this.em()
+            .flush();
+        final EntityTransaction transaction = this.em()
+                                                  .getTransaction();
         transaction.commit();
-        this.em.clear();
+        this.em()
+            .clear();
     }
 }

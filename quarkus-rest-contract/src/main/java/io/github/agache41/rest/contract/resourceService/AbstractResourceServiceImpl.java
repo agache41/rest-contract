@@ -111,7 +111,7 @@ public abstract class AbstractResourceServiceImpl<TO extends PrimaryKey<PK> & Tr
         return this.getDataBinder()
                    .listAll(this.getConfig()
                                 .getFirstResult(firstResult), this.getConfig()
-                                                                  .getMaxResults(maxResults), uriInfo);
+                                                                  .getMaxResults(maxResults), uriInfo != null ? uriInfo.getQueryParameters() : null);
     }
 
 
@@ -208,7 +208,7 @@ public abstract class AbstractResourceServiceImpl<TO extends PrimaryKey<PK> & Tr
         }
         return this.getDataAccess()
                    .autocompleteByColumnLikeValue(stringField, value, this.getConfig()
-                                                                          .getAutocompleteMaxResults(maxResults), uriInfo);
+                                                                          .getAutocompleteMaxResults(maxResults), uriInfo != null ? uriInfo.getQueryParameters() : null);
     }
 
     /**
@@ -229,7 +229,7 @@ public abstract class AbstractResourceServiceImpl<TO extends PrimaryKey<PK> & Tr
         }
         return this.getDataAccess()
                    .autocompleteIdsByColumnLikeValue(stringField, value, this.getConfig()
-                                                                             .getAutocompleteMaxResults(maxResults), uriInfo);
+                                                                             .getAutocompleteMaxResults(maxResults), uriInfo != null ? uriInfo.getQueryParameters() : null);
     }
 
     /**

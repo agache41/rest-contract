@@ -24,7 +24,7 @@ import io.github.agache41.rest.contract.update.Update;
 import io.github.agache41.rest.contract.update.updater.*;
 import io.github.agache41.rest.contract.utils.ReflectionUtils;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+//import jakarta.validation.constraints.NotNull;
 //import org.jboss.logging.Logger;
 
 import java.lang.reflect.Field;
@@ -140,7 +140,7 @@ public final class FieldReflector<T, S, TV, SV> {
             this.activ = true;
             this.dynamic = this.updateAnnotation.dynamic();
             this.updatable = this.updateAnnotation.updatable() && (this.columnAnnotation == null || this.columnAnnotation.updatable());
-            this.nullable = this.updateAnnotation.nullable() && (this.columnAnnotation == null || this.columnAnnotation.nullable()) && !field.isAnnotationPresent(NotNull.class);
+            this.nullable = this.updateAnnotation.nullable() && (this.columnAnnotation == null || this.columnAnnotation.nullable()) /*&& !field.isAnnotationPresent(NotNull.class)*/;
             this.insertable = this.updateAnnotation.insertable() && (this.columnAnnotation == null || this.columnAnnotation.insertable());
             if (this.associatedClass.equals(this.enclosingClass)) {
                 this.associatedName = this.name;

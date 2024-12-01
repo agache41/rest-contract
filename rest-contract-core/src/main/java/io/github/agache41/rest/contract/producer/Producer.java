@@ -19,7 +19,7 @@ package io.github.agache41.rest.contract.producer;
 
 import io.github.agache41.rest.contract.update.reflector.ClassReflector;
 import io.github.agache41.rest.contract.update.reflector.FieldReflector;
-import jakarta.validation.constraints.NotNull;
+//import jakarta.validation.constraints.NotNull;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -156,7 +156,7 @@ public class Producer<T> {
      * @param clazz the clazz
      * @return the producer
      */
-    public static <R> Producer<R> ofClass(@NotNull final Class<R> clazz) {
+    public static <R> Producer<R> ofClass(final Class<R> clazz) {
         return (Producer<R>) producerCache.computeIfAbsent(clazz, cls -> new Producer(cls));
     }
 
