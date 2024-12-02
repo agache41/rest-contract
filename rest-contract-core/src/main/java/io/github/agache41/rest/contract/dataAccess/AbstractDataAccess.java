@@ -37,9 +37,6 @@ import static io.github.agache41.rest.contract.dataAccess.PrimaryKey.ID;
 
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.*;
-import jakarta.transaction.Transactional;
-
-import static jakarta.transaction.Transactional.TxType.REQUIRED;
 
 /**
  * <pre>
@@ -54,7 +51,6 @@ import static jakarta.transaction.Transactional.TxType.REQUIRED;
  * @param <ENTITY> the type parameter
  * @param <PK>     the type parameter
  */
-@Transactional(REQUIRED)
 public abstract class AbstractDataAccess<ENTITY extends PrimaryKey<PK>, PK> {
 
     /**
@@ -147,6 +143,9 @@ public abstract class AbstractDataAccess<ENTITY extends PrimaryKey<PK>, PK> {
 //        this(((Class<ENTITY>) (((ParameterizedType) ip.getType()).getActualTypeArguments()[0])),//
 //                ((Class<PK>) (((ParameterizedType) ip.getType()).getActualTypeArguments()[1])));//
 //    }
+
+  //  protected AbstractDataAccess(){};
+
 
     /**
      * <pre>

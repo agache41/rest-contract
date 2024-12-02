@@ -18,13 +18,9 @@
 package io.github.agache41.rest.contract.dataAccess;
 
 import io.github.agache41.rest.contract.update.TransferObject;
-import jakarta.enterprise.context.Dependent;
-import jakarta.enterprise.inject.spi.InjectionPoint;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
 import jakarta.transaction.Transactional;
-
-import java.lang.reflect.ParameterizedType;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import static jakarta.transaction.Transactional.TxType.REQUIRED;
 
@@ -35,22 +31,9 @@ import static jakarta.transaction.Transactional.TxType.REQUIRED;
  * @param <ENTITY> the type parameter
  * @param <PK>     the type parameter
  */
-@Dependent
-@Named("DataBinder")
+@Service("DataBinder")
 @Transactional(REQUIRED)
 public class DataBinder<TO extends PrimaryKey<PK> & TransferObject<TO, ENTITY>, ENTITY extends PrimaryKey<PK>, PK> extends AbstractDataBinder<TO, ENTITY, PK> {
-
-    /**
-     * Instantiates a new Data binder.
-     *
-     * @param ip the ip
-     */
-    @Inject
-    public DataBinder(final InjectionPoint ip) {
-        this(((Class<TO>) (((ParameterizedType) ip.getType()).getActualTypeArguments()[0])), //
-                ((Class<ENTITY>) (((ParameterizedType) ip.getType()).getActualTypeArguments()[1])),//
-                ((Class<PK>) (((ParameterizedType) ip.getType()).getActualTypeArguments()[2])));//
-    }
 
     /**
      * Instantiates a new Data binder.

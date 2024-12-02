@@ -19,7 +19,6 @@ package io.github.agache41.rest.contract.resourceService;
 
 import io.github.agache41.rest.contract.dataAccess.IdGroup;
 import io.github.agache41.rest.contract.dataAccess.PrimaryKey;
-import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.UriInfo;
 
 import java.util.List;
@@ -43,7 +42,7 @@ public interface ResourceService<TO extends PrimaryKey<K>, K> {
      * @param id the id
      * @return the corresponding entity at the provided id. If no entity is found, an Expected will be thrown.
      */
-    TO get(@PathParam("id") K id);
+    TO get(K id);
 
     /**
      * <pre>
@@ -80,7 +79,7 @@ public interface ResourceService<TO extends PrimaryKey<K>, K> {
      * @param ids the list of ids
      * @return the list of entities
      */
-    List<TO> getByIdsAsList(@PathParam("ids") List<K> ids);
+    List<TO> getByIdsAsList(List<K> ids);
 
     /**
      * <pre>
@@ -291,7 +290,7 @@ public interface ResourceService<TO extends PrimaryKey<K>, K> {
      *
      * @param id the id
      */
-    void delete(@PathParam("id") K id);
+    void delete(K id);
 
     /**
      * <pre>
@@ -309,7 +308,7 @@ public interface ResourceService<TO extends PrimaryKey<K>, K> {
      *
      * @param ids the ids
      */
-    void deleteByIdsInPath(@PathParam("ids") List<K> ids);
+    void deleteByIdsInPath(List<K> ids);
 
     /**
      * Gets the default configuration object.
