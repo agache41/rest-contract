@@ -19,7 +19,7 @@ package io.github.agache41.rest.contract.resourceService;
 
 import io.github.agache41.rest.contract.dataAccess.IdGroup;
 import io.github.agache41.rest.contract.dataAccess.PrimaryKey;
-import jakarta.ws.rs.core.UriInfo;
+import org.springframework.util.MultiValueMap;
 
 import java.util.List;
 import java.util.Map;
@@ -63,12 +63,12 @@ public interface ResourceService<TO extends PrimaryKey<K>, K> {
      *
      * @param firstResult the first result
      * @param maxResults  the max results
-     * @param uriInfo     the uri info
+     * @param requestParameters   the uri info
      * @return the list of entities
      */
     List<TO> getAllAsList(Integer firstResult,
                           Integer maxResults,
-                          UriInfo uriInfo);
+                          MultiValueMap<String, String> requestParameters);
 
     /**
      * <pre>
@@ -163,14 +163,14 @@ public interface ResourceService<TO extends PrimaryKey<K>, K> {
      * @param value       the string value to equal
      * @param cut         the cut
      * @param maxResults  the max results
-     * @param uriInfo     the uri info
+     * @param requestParameters     the uri info
      * @return the list of entities matching
      */
     List<String> getAutocompleteStringFieldLikeValueAsSortedSet(String stringField,
                                                                 String value,
                                                                 Integer cut,
                                                                 Integer maxResults,
-                                                                UriInfo uriInfo);
+                                                                MultiValueMap<String, String> requestParameters);
 
     /**
      * <pre>
@@ -187,14 +187,14 @@ public interface ResourceService<TO extends PrimaryKey<K>, K> {
      * @param value       the string value to equal
      * @param cut         the cut
      * @param maxResults  the max results
-     * @param uriInfo     the uri info
+     * @param requestParameters     the uri info
      * @return the list of IdGroup object matching the input value
      */
     List<IdGroup<K>> getAutocompleteIdsStringFieldLikeValueAsList(String stringField,
                                                                   String value,
                                                                   Integer cut,
                                                                   Integer maxResults,
-                                                                  UriInfo uriInfo);
+                                                                  MultiValueMap<String, String> requestParameters);
 
     /**
      * <pre>
