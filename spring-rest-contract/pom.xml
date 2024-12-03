@@ -7,9 +7,9 @@
         <artifactId>rest-contract</artifactId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>spring-integration-model</artifactId>
+    <artifactId>spring-rest-contract</artifactId>
     <version>1.0.0</version>
-    <name>spring-integration-model</name>
+    <name>spring-rest-contract</name>
     <description>Demo project for Spring Integration</description>
     <properties>
         <java.version>17</java.version>
@@ -39,37 +39,21 @@
 
         <dependency>
             <groupId>io.github.agache41</groupId>
-            <artifactId>spring-rest-contract</artifactId>
+            <artifactId>rest-contract-core</artifactId>
             <version>1.0.0</version>
         </dependency>
 
         <!--  Test Dependencies  -->
         <dependency>
             <groupId>io.github.agache41</groupId>
-            <artifactId>spring-rest-contract</artifactId>
-            <version>1.0.0</version>
-            <classifier>tests</classifier>
-            <type>test-jar</type>
-            <scope>test</scope>
-
-        </dependency>
-
-        <dependency>
-            <groupId>io.github.agache41</groupId>
             <artifactId>rest-contract-core</artifactId>
             <version>1.0.0</version>
             <classifier>tests</classifier>
             <type>test-jar</type>
-            <!--            <scope>test</scope>-->
+<!--            <scope>test</scope>-->
 
         </dependency>
 
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.10.1</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>

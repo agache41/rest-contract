@@ -22,7 +22,7 @@
 
     <groupId>io.github.agache41</groupId>
     <artifactId>rest-contract</artifactId>
-    <version>${revision}</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
 
     <name>Rest Contract</name>
@@ -63,6 +63,7 @@
         <module>rest-contract-core</module>
         <module>quarkus-rest-contract</module>
         <module>quarkus-integration-model</module>
+        <module>spring-rest-contract</module>
         <module>spring-integration-model</module>
     </modules>
 

@@ -20,6 +20,7 @@ package io.github.agache41.rest.contract.dataAccess;
 import io.github.agache41.rest.contract.exceptions.UnexpectedException;
 import io.github.agache41.rest.contract.update.TransferObject;
 import io.github.agache41.rest.contract.update.Update;
+import jakarta.transaction.Transactional;
 
 import java.util.Collection;
 import java.util.List;
@@ -281,6 +282,7 @@ public abstract class AbstractDataBinder<TO extends PrimaryKey<PK> & TransferObj
      * @param to the object that contains the id and is the source for update
      * @return the to for the persisted entity.
      */
+    @Transactional
     public TO updateById(final TO to) {
         final ENTITY persisted = this.getDataAccess()
                                      .findPersisted(to);
@@ -299,6 +301,7 @@ public abstract class AbstractDataBinder<TO extends PrimaryKey<PK> & TransferObj
      * @param allExpected  is set to true, all the Entities with the given id must exist in the Database or a UnexpectedException is thrown.
      * @return the persisted entities in a Stream&#x3C;ENTITY&#x3E;
      */
+    @Transactional
     public List<TO> updateByIds(final Collection<TO> toCollection,
                                 final boolean allExpected) {
         final Map<PK, ENTITY> persistedMap = this.getDataAccess()

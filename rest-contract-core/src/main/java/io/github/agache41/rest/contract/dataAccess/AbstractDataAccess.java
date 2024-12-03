@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.lang.reflect.Constructor;
 
+import static jakarta.transaction.Transactional.TxType.REQUIRED;
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toList;
 
@@ -37,6 +38,7 @@ import static io.github.agache41.rest.contract.dataAccess.PrimaryKey.ID;
 
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.*;
+import jakarta.transaction.Transactional;
 
 /**
  * <pre>
@@ -51,6 +53,7 @@ import jakarta.persistence.criteria.*;
  * @param <ENTITY> the type parameter
  * @param <PK>     the type parameter
  */
+@Transactional(REQUIRED)
 public abstract class AbstractDataAccess<ENTITY extends PrimaryKey<PK>, PK> {
 
     /**
@@ -689,6 +692,7 @@ public abstract class AbstractDataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param entity the given entity
      * @see EntityManager#remove(Object) jakarta.persistence.EntityManager#remove(Object)jakarta.persistence.EntityManager#remove(Object)jakarta.persistence.EntityManager#remove(Object)jakarta.persistence.EntityManager#remove(Object)jakarta.persistence.EntityManager#remove(Object)jakarta.persistence.EntityManager#remove(Object)jakarta.persistence.EntityManager#remove(Object)jakarta.persistence.EntityManager#remove(Object)jakarta.persistence.EntityManager#remove(Object)
      */
+    @Transactional
     public void remove(final ENTITY entity) {
         if (this.namedQueries.contains(this.deleteByIdNamedQuery)) {
             this.em()
@@ -760,6 +764,7 @@ public abstract class AbstractDataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @return the merged entity
      * @see EntityManager#merge(Object) jakarta.persistence.EntityManager#merge(Object)jakarta.persistence.EntityManager#merge(Object)jakarta.persistence.EntityManager#merge(Object)jakarta.persistence.EntityManager#merge(Object)jakarta.persistence.EntityManager#merge(Object)jakarta.persistence.EntityManager#merge(Object)jakarta.persistence.EntityManager#merge(Object)jakarta.persistence.EntityManager#merge(Object)jakarta.persistence.EntityManager#merge(Object)
      */
+    @Transactional
     public ENTITY merge(final ENTITY entity) {
         return this.em()
                    .merge(this.assertNotNull(entity));
@@ -789,6 +794,7 @@ public abstract class AbstractDataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @return the persisted entity
      * @see EntityManager#persist(Object) jakarta.persistence.EntityManager#persist(Object)jakarta.persistence.EntityManager#persist(Object)jakarta.persistence.EntityManager#persist(Object)jakarta.persistence.EntityManager#persist(Object)jakarta.persistence.EntityManager#persist(Object)jakarta.persistence.EntityManager#persist(Object)jakarta.persistence.EntityManager#persist(Object)jakarta.persistence.EntityManager#persist(Object)jakarta.persistence.EntityManager#persist(Object)
      */
+    @Transactional
     public ENTITY persist(final ENTITY newEntity) {
         this.em()
             .persist(newEntity);

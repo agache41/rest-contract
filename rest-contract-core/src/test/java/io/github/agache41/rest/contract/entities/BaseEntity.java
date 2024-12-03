@@ -33,6 +33,14 @@ import java.math.BigInteger;
 public class BaseEntity {
     private static final long serialVersionUID = 7578664415534706949L;
 
+    public String getStringVal() {
+        return stringVal;
+    }
+
+    public void setStringVal(String stringVal) {
+        this.stringVal = stringVal;
+    }
+
     @Basic
     @Update(order = 2)
     private String stringVal;

@@ -28,17 +28,17 @@
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
 
         <properties>
-            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1"/>
-            <property name="javax.persistence.jdbc.user" value="sa"/>
-            <property name="javax.persistence.jdbc.password" value=""/>
+            <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1"/>
+            <property name="jakarta.persistence.jdbc.user" value="sa"/>
+            <property name="jakarta.persistence.jdbc.password" value=""/>
 <!--            <property name="hibernate.transaction.jta.platform"-->
 <!--                      value="org.hibernate.engine.transaction.jta.platform.internal.JBossStandAloneJtaPlatform"/>-->
 
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
 
             <!-- Set this false to reduce unnecessary logging-->
-            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.show_sql" value="true"/>
 
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.highlight_sql" value="true"/>
@@ -53,6 +53,8 @@
             <property name="hibernate.hikari.minimumIdle" value="5"/>
             <property name="hibernate.hikari.maximumPoolSize" value="15"/>
             <property name="hibernate.hikari.idleTimeout" value="30000"/>
+
+<!--            <property name="hibernate.transaction.jta.platform" value="true"/>-->
         </properties>
 
     </persistence-unit>
