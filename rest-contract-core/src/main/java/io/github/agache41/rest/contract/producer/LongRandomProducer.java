@@ -17,11 +17,23 @@
 
 package io.github.agache41.rest.contract.producer;
 
+/**
+ * The type Long random producer.
+ */
 public class LongRandomProducer extends Producer<Long> {
 
+    /**
+     * The Min.
+     */
     final long min = 100000;
+    /**
+     * The Max.
+     */
     final long max = 10000000;
 
+    /**
+     * Instantiates a new Long random producer.
+     */
     public LongRandomProducer() {
         super(Long.class);
     }

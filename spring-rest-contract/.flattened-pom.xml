@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>io.github.agache41</groupId>
+  <artifactId>spring-rest-contract</artifactId>
+  <version>1.0.0</version>
+  <name>Rest Contract API and Data Access over JPA for Spring Boot</name>
+  <description>Generic REST JPA is a JEE library targeted on creating generic Resource Services and Data Access Layers on top
+        of JPA and CDI.
+        It develops REST Services starting from the CRUD pattern and extends it by adding frequently needed methods to
+        each domain entity.</description>
+  <url>https://github.com/agache41/rest-contract/spring-rest-contract</url>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>Alexandru Agache</name>
+      <email>agache41@yahoo.com</email>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:https://github.com/agache41/rest-contract.git/spring-rest-contract</connection>
+    <developerConnection>scm:git:https://github.com/agache41/rest-contract.git/spring-rest-contract</developerConnection>
+    <url>https://github.com/agache41/rest-contract/spring-rest-contract</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>io.github.agache41</groupId>
+      <artifactId>rest-contract-core</artifactId>
+      <version>1.0.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.persistence</groupId>
+      <artifactId>jakarta.persistence-api</artifactId>
+      <version>3.1.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>6.1.8</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>6.1.8</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>6.1.8</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.logging</groupId>
+      <artifactId>jboss-logging</artifactId>
+      <version>3.5.3.Final</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+</project>

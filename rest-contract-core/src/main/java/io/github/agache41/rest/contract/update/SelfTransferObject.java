@@ -16,6 +16,7 @@
  */
 
 package io.github.agache41.rest.contract.update;
+
 /**
  * The interface Self transfer object.
  *

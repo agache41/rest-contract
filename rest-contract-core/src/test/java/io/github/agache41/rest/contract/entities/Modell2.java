@@ -17,20 +17,16 @@
 
 package io.github.agache41.rest.contract.entities;
 
-import io.github.agache41.rest.contract.dataAccess.PrimaryKey;
+import io.github.agache41.rest.contract.dataAccessBase.PrimaryKey;
 import io.github.agache41.rest.contract.update.SelfTransferObject;
 import io.github.agache41.rest.contract.update.Update;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Update
 public class Modell2 implements PrimaryKey<String>, SelfTransferObject<Modell2> {

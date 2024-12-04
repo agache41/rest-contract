@@ -15,7 +15,7 @@
  *    limitations under the License.
  */
 
-package io.github.agache41.rest.contract.dataAccess;
+package io.github.agache41.rest.contract.dataAccessBase;
 
 import jakarta.persistence.Tuple;
 

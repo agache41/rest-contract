@@ -49,11 +49,11 @@ public class SubModellBFksResourceServiceTest extends AbstractResourceServiceImp
 
     public SubModellBFksResourceServiceTest() {
         super(new SubModellBFksResourceService(),
-              SubModellBFks.class, //
-              insertData, //
-              updateData,
-              stringField,
-              producer); //
+                SubModellBFks.class, //
+                insertData, //
+                updateData,
+                stringField,
+                producer); //
     }
 
     @BeforeEach

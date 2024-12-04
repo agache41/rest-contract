@@ -21,15 +21,11 @@ package io.github.agache41.rest.contract.entities;
 import io.github.agache41.rest.contract.update.Update;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @Update
 @Embeddable
 public class EmbeddedKeys2 {

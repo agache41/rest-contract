@@ -5,7 +5,6 @@ import io.github.agache41.rest.contract.producer.Producer;
 import io.github.agache41.rest.contract.resourceService.AbstractResourceServiceImplTest;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.transaction.Transactional;
-//import modell.quarkus.entities.Modell;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -36,10 +35,10 @@ public class ModellResourceServiceTest extends AbstractResourceServiceImplTest<M
 
     public ModellResourceServiceTest() {
         super(Modell.class, //
-              path, //
-              insertData, //
-              updateData, //
-              stringField,//
-              producer); //
+                path, //
+                insertData, //
+                updateData, //
+                stringField,//
+                producer); //
     }
 }

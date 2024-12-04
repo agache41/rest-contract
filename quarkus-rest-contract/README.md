@@ -121,7 +121,8 @@ For the **Modell** entity the following REST services are available :
 
 ### Updating
 
-What does the [@Update](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/Update.java) annotation do ?
+What does the [@Update](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/Update.java)
+annotation do ?
 
 The Resource Service uses the entity as both [DAO](https://en.wikipedia.org/wiki/Data_access_object)
 and [DTO](https://en.wikipedia.org/wiki/Data_transfer_object). Upon update though it is important to be able to
@@ -130,7 +131,8 @@ configure which fields participate in the update process and how null values imp
 When a field is annotated, it will be updated from the provided source during a PUT or POST operation.
 
 When used on the class, all fields will be updated, except the ones annotated
-with [@Update.excluded](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/Update.java) annotation.
+with [@Update.excluded](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/Update.java)
+annotation.
 
 If a field is not annotated, it will not participate in the update process. That is general the case for the id field
 and for our last field in the example (age).

@@ -17,9 +17,18 @@
 
 package io.github.agache41.rest.contract.producer;
 
+/**
+ * The type Double random producer.
+ */
 public class DoubleRandomProducer extends Producer<Double> {
+    /**
+     * The Max.
+     */
     final short max = 10000;
 
+    /**
+     * Instantiates a new Double random producer.
+     */
     public DoubleRandomProducer() {
         super(Double.class);
     }

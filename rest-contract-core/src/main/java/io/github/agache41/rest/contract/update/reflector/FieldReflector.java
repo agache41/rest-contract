@@ -17,15 +17,13 @@
 
 package io.github.agache41.rest.contract.update.reflector;
 
-import io.github.agache41.rest.contract.dataAccess.PrimaryKey;
+import io.github.agache41.rest.contract.dataAccessBase.PrimaryKey;
 import io.github.agache41.rest.contract.update.SelfTransferObject;
 import io.github.agache41.rest.contract.update.TransferObject;
 import io.github.agache41.rest.contract.update.Update;
 import io.github.agache41.rest.contract.update.updater.*;
 import io.github.agache41.rest.contract.utils.ReflectionUtils;
 import jakarta.persistence.*;
-//import jakarta.validation.constraints.NotNull;
-//import org.jboss.logging.Logger;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

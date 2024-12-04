@@ -15,8 +15,16 @@
  *    limitations under the License.
  */
 
-package io.github.agache41.rest.contract.dataAccess;
+package io.github.agache41.rest.contract.dataAccessBase;
 
+import io.github.agache41.rest.contract.exceptions.ExpectedException;
+import io.github.agache41.rest.contract.exceptions.UnexpectedException;
+import io.github.agache41.rest.contract.utils.ReflectionUtils;
+import jakarta.persistence.*;
+import jakarta.persistence.criteria.*;
+import jakarta.transaction.Transactional;
+
+import java.lang.reflect.Constructor;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -24,21 +32,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.lang.reflect.Constructor;
 
-import static jakarta.transaction.Transactional.TxType.REQUIRED;
+import static io.github.agache41.rest.contract.dataAccessBase.PrimaryKey.ID;
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toList;
-
-import io.github.agache41.rest.contract.exceptions.ExpectedException;
-import io.github.agache41.rest.contract.exceptions.UnexpectedException;
-import io.github.agache41.rest.contract.utils.ReflectionUtils;
-
-import static io.github.agache41.rest.contract.dataAccess.PrimaryKey.ID;
-
-import jakarta.persistence.*;
-import jakarta.persistence.criteria.*;
-import jakarta.transaction.Transactional;
 
 /**
  * <pre>
@@ -53,7 +50,7 @@ import jakarta.transaction.Transactional;
  * @param <ENTITY> the type parameter
  * @param <PK>     the type parameter
  */
-@Transactional(REQUIRED)
+@Transactional
 public abstract class AbstractDataAccess<ENTITY extends PrimaryKey<PK>, PK> {
 
     /**
@@ -123,33 +120,6 @@ public abstract class AbstractDataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * The List all named query.
      */
     protected final String listAllNamedQuery;
-//    /**
-//     * <pre>
-//     * The default EntityManager in use.
-//     * </pre>
-//     */
-//    @Inject
-//    protected EntityManager em;
-
-
-//    /**
-//     * <pre>
-//     * Injection Point Constructor
-//     * Example how to inject a DataAccess for a class TypeClass with Primary Key PKey:
-//     * &#064;Inject DataAccess &#x3C;MyClass, PKey&#x3E; myClassDao;
-//     * </pre>
-//     *
-//     * @param ip the underlining injection point, provided by CDI.
-//     */
-//    @Inject
-//    public AbstractDataAccess(final InjectionPoint ip) {
-//        this(((Class<ENTITY>) (((ParameterizedType) ip.getType()).getActualTypeArguments()[0])),//
-//                ((Class<PK>) (((ParameterizedType) ip.getType()).getActualTypeArguments()[1])));//
-//    }
-
-  //  protected AbstractDataAccess(){};
-
-
     /**
      * <pre>
      * Root constructor.
@@ -575,6 +545,11 @@ public abstract class AbstractDataAccess<ENTITY extends PrimaryKey<PK>, PK> {
                                                                                            .collect(toList())));
     }
 
+    /**
+     * Extracts the orderBy Query params, filters them
+     * @param requestParameters the parameters from the request
+     * @return the map with orderBy fields
+     */
     protected LinkedHashMap<String, Boolean> orderByQueryParams(final Map<String, List<String>> requestParameters) {
         final LinkedHashMap<String, Boolean> result = new LinkedHashMap<>();
         if (requestParameters == null || requestParameters.isEmpty()) {
@@ -692,7 +667,6 @@ public abstract class AbstractDataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @param entity the given entity
      * @see EntityManager#remove(Object) jakarta.persistence.EntityManager#remove(Object)jakarta.persistence.EntityManager#remove(Object)jakarta.persistence.EntityManager#remove(Object)jakarta.persistence.EntityManager#remove(Object)jakarta.persistence.EntityManager#remove(Object)jakarta.persistence.EntityManager#remove(Object)jakarta.persistence.EntityManager#remove(Object)jakarta.persistence.EntityManager#remove(Object)jakarta.persistence.EntityManager#remove(Object)
      */
-    @Transactional
     public void remove(final ENTITY entity) {
         if (this.namedQueries.contains(this.deleteByIdNamedQuery)) {
             this.em()
@@ -764,7 +738,6 @@ public abstract class AbstractDataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @return the merged entity
      * @see EntityManager#merge(Object) jakarta.persistence.EntityManager#merge(Object)jakarta.persistence.EntityManager#merge(Object)jakarta.persistence.EntityManager#merge(Object)jakarta.persistence.EntityManager#merge(Object)jakarta.persistence.EntityManager#merge(Object)jakarta.persistence.EntityManager#merge(Object)jakarta.persistence.EntityManager#merge(Object)jakarta.persistence.EntityManager#merge(Object)jakarta.persistence.EntityManager#merge(Object)
      */
-    @Transactional
     public ENTITY merge(final ENTITY entity) {
         return this.em()
                    .merge(this.assertNotNull(entity));
@@ -794,7 +767,6 @@ public abstract class AbstractDataAccess<ENTITY extends PrimaryKey<PK>, PK> {
      * @return the persisted entity
      * @see EntityManager#persist(Object) jakarta.persistence.EntityManager#persist(Object)jakarta.persistence.EntityManager#persist(Object)jakarta.persistence.EntityManager#persist(Object)jakarta.persistence.EntityManager#persist(Object)jakarta.persistence.EntityManager#persist(Object)jakarta.persistence.EntityManager#persist(Object)jakarta.persistence.EntityManager#persist(Object)jakarta.persistence.EntityManager#persist(Object)jakarta.persistence.EntityManager#persist(Object)
      */
-    @Transactional
     public ENTITY persist(final ENTITY newEntity) {
         this.em()
             .persist(newEntity);

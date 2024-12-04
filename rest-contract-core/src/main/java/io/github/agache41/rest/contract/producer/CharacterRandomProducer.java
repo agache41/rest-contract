@@ -20,10 +20,16 @@ package io.github.agache41.rest.contract.producer;
 import java.util.Collections;
 import java.util.LinkedList;
 
+/**
+ * The type Character random producer.
+ */
 public class CharacterRandomProducer extends Producer<Character> {
 
     private final LinkedList<Character> charList = new LinkedList<>();
 
+    /**
+     * Instantiates a new Character random producer.
+     */
     public CharacterRandomProducer() {
         super(Character.class);
         this.initCharList();

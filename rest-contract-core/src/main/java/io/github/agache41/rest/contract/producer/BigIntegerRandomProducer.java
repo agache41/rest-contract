@@ -19,9 +19,18 @@ package io.github.agache41.rest.contract.producer;
 
 import java.math.BigInteger;
 
+/**
+ * The type Big integer random producer.
+ */
 public class BigIntegerRandomProducer extends Producer<BigInteger> {
+    /**
+     * The Max.
+     */
     final short max = 10000;
 
+    /**
+     * Instantiates a new Big integer random producer.
+     */
     public BigIntegerRandomProducer() {
         super(BigInteger.class);
     }

@@ -15,7 +15,7 @@
  *    limitations under the License.
  */
 
-package io.github.agache41.rest.contract.resourceService;
+package io.github.agache41.rest.contract.resourceServiceBase;
 
 /**
  * The interface describing the configuration for a resource service.

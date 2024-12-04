@@ -17,11 +17,13 @@
 
 package io.github.agache41.rest.contract.entities;
 
-import io.github.agache41.rest.contract.dataAccess.PrimaryKey;
+import io.github.agache41.rest.contract.dataAccessBase.PrimaryKey;
 import io.github.agache41.rest.contract.update.SelfTransferObject;
 import io.github.agache41.rest.contract.update.Update;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -29,9 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Update
 public class ModellFks implements PrimaryKey<Long>, SelfTransferObject<ModellFks> {

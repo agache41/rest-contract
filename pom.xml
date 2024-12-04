@@ -22,13 +22,13 @@
 
     <groupId>io.github.agache41</groupId>
     <artifactId>rest-contract</artifactId>
-    <version>1.0.0</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
-    <name>Rest Contract</name>
+    <name>Rest Contract Base Project</name>
     <description>
     </description>
-    <url>https://github.com/agache41/...</url>
+    <url>https://github.com/agache41/rest-contract</url>
 
     <licenses>
         <license>
@@ -53,6 +53,7 @@
     <properties>
         <!-- Unique entry point for version number management -->
         <revision>1.0.0</revision>
+        <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.parameters>true</maven.compiler.parameters>
@@ -66,20 +67,32 @@
         <module>spring-rest-contract</module>
         <module>spring-integration-model</module>
     </modules>
-
-    <dependencies>
-    </dependencies>
-
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.13.0</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.6.0</version>
                 <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>oss</flattenMode>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -96,75 +109,28 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.11.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <configuration>
-                            <!--                            todo: fix javadoc-->
-                            <!--                            <failOnWarnings>true</failOnWarnings>-->
-                            <failOnWarnings>false</failOnWarnings>
-                        </configuration>
-                    </execution>
-                </executions>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.4.2</version>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.8.1</version>
                 <executions>
                     <execution>
                         <goals>
-                            <goal>test-jar</goal>
+                            <goal>resolve-sources</goal>
                         </goals>
+                        <configuration>
+                            <silent>true</silent>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
-    <profiles>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.simplify4u.plugins</groupId>
-                        <artifactId>sign-maven-plugin</artifactId>
-                        <version>1.0.1</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <serverId>sign-key-id</serverId>
-                            <skipNoKey>false</skipNoKey>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.sonatype.central</groupId>
-                        <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>0.6.0</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <publishingServerId>central</publishingServerId>
-                            <tokenAuth>true</tokenAuth>
-                            <autoPublish>true</autoPublish>
-                            <waitUntil>published</waitUntil>
-                            <!--  Use this to test the deployment -->
-                            <!-- <autoPublish>false</autoPublish> -->
-                            <!-- <waitUntil>validated</waitUntil> -->
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

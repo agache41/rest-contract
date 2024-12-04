@@ -18,10 +18,10 @@
 package io.github.agache41.rest.contract.modell.resources;
 
 
-import io.github.agache41.rest.contract.modell.dataBinder.EmbeddedIdModellDataBinder;
-import io.github.agache41.rest.contract.modell.dataaccess.EmbeddedIdModellDataAccess;
 import io.github.agache41.rest.contract.entities.EmbeddedIdModell;
 import io.github.agache41.rest.contract.entities.EmbeddedKeys;
+import io.github.agache41.rest.contract.modell.dataBinder.EmbeddedIdModellDataBinder;
+import io.github.agache41.rest.contract.modell.dataaccess.EmbeddedIdModellDataAccess;
 import io.github.agache41.rest.contract.resourceService.AbstractResourceServiceImpl;
 import lombok.Getter;
 

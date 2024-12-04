@@ -42,7 +42,7 @@ Let's start with a database table named Modell and the associated JPA Entity.
 ### Entity
 
 Let the **entity** implement
-the [PrimaryKey](src/main/java/io/github/agache41/rest/contract/dataAccess/PrimaryKey.java) and
+the [PrimaryKey](src/main/java/io/github/agache41/rest/contract/dataAccessBase/PrimaryKey.java) and
 the [Updatable](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/Updatable.java)
 
 interface :
@@ -79,7 +79,7 @@ Notice the used @Data annotation from [Lombok](https://projectlombok.org/).
 ### Resource Service
 
 Extend your **resource service**
-from [AbstractResourceServiceImpl](src/main/java/io/github/agache41/rest/contract/resourceService/AbstractResourceServiceImpl.java):
+from [AbstractResourceServiceImpl](src/main/java/io/github/agache41/rest/contract/resourceServiceBase/AbstractResourceServiceImpl.java):
 
 ```java
 
@@ -121,7 +121,8 @@ For the **Modell** entity the following REST services are available :
 
 ### Updating
 
-What does the [@Update](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/Update.java) annotation do ?
+What does the [@Update](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/Update.java)
+annotation do ?
 
 The Resource Service uses the entity as both [DAO](https://en.wikipedia.org/wiki/Data_access_object)
 and [DTO](https://en.wikipedia.org/wiki/Data_transfer_object). Upon update though it is important to be able to
@@ -130,7 +131,8 @@ configure which fields participate in the update process and how null values imp
 When a field is annotated, it will be updated from the provided source during a PUT or POST operation.
 
 When used on the class, all fields will be updated, except the ones annotated
-with [@Update.excluded](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/Update.java) annotation.
+with [@Update.excluded](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/Update.java)
+annotation.
 
 If a field is not annotated, it will not participate in the update process. That is general the case for the id field
 and for our last field in the example (age).
@@ -142,7 +144,7 @@ This is only recommended to be used when the update source transfer object is al
 Every entity participating in this update process must implement
 the [Updatable](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/Updatable.java) interface.
 The root entity must also implement
-the [PrimaryKey](src/main/java/io/github/agache41/rest/contract/dataAccess/PrimaryKey.java) interface and provide a
+the [PrimaryKey](src/main/java/io/github/agache41/rest/contract/dataAccessBase/PrimaryKey.java) interface and provide a
 unique id field.
 If the primary key of the table is composed of several database
 columns, [@EmbeddedId](https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/embeddedid)
@@ -245,7 +247,7 @@ So far so good. But how can I be sure that the generated services do really work
 Not to mention that there are already 17 methods in the service, and that goes for each entity.
 
 Let's start by creating the **TestUnit** by
-extending  [AbstractResourceServiceImplTest](src/main/java/io/github/agache41/rest/contract/resourceService/AbstractResourceServiceImpl.java).
+extending  [AbstractResourceServiceImplTest](src/main/java/io/github/agache41/rest/contract/resourceServiceBase/AbstractResourceServiceImpl.java).
 
 ```java
 

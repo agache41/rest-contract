@@ -17,16 +17,15 @@
 
 package io.github.agache41.rest.contract.dataAccess;
 
-import java.lang.reflect.ParameterizedType;
-
-import jakarta.persistence.EntityManager;
+import io.github.agache41.rest.contract.dataAccessBase.AbstractDataAccess;
+import io.github.agache41.rest.contract.dataAccessBase.PrimaryKey;
 import jakarta.enterprise.context.Dependent;
 import jakarta.enterprise.inject.spi.InjectionPoint;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.transaction.Transactional;
+import jakarta.persistence.EntityManager;
 
-import static jakarta.transaction.Transactional.TxType.REQUIRED;
+import java.lang.reflect.ParameterizedType;
 
 
 /**
@@ -44,7 +43,6 @@ import static jakarta.transaction.Transactional.TxType.REQUIRED;
  */
 @Dependent
 @Named("DataAccess")
-@Transactional(REQUIRED)
 public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> extends AbstractDataAccess<ENTITY, PK> {
 
 
@@ -56,6 +54,11 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> extends AbstractDataA
     @Inject
     protected EntityManager em;
 
+    /**
+     * Constructs a new DataAccess, based on the generic types
+     * @param type - the class for the type
+     * @param keyType - the class for the key
+     */
     public DataAccess(Class<ENTITY> type, Class<PK> keyType) {
         super(type, keyType);
     }

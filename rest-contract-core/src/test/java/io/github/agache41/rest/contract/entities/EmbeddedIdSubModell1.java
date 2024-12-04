@@ -17,16 +17,17 @@
 
 package io.github.agache41.rest.contract.entities;
 
-import io.github.agache41.rest.contract.dataAccess.PrimaryKey;
+import io.github.agache41.rest.contract.dataAccessBase.PrimaryKey;
 import io.github.agache41.rest.contract.update.SelfTransferObject;
 import io.github.agache41.rest.contract.update.Update;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Update

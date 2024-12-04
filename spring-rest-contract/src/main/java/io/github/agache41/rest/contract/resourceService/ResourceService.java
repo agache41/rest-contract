@@ -17,8 +17,9 @@
 
 package io.github.agache41.rest.contract.resourceService;
 
-import io.github.agache41.rest.contract.dataAccess.IdGroup;
-import io.github.agache41.rest.contract.dataAccess.PrimaryKey;
+import io.github.agache41.rest.contract.dataAccessBase.IdGroup;
+import io.github.agache41.rest.contract.dataAccessBase.PrimaryKey;
+import io.github.agache41.rest.contract.resourceServiceBase.ResourceServiceConfig;
 import org.springframework.util.MultiValueMap;
 
 import java.util.List;
@@ -61,9 +62,9 @@ public interface ResourceService<TO extends PrimaryKey<K>, K> {
      * Returns all the entities for the given table.
      * </pre>
      *
-     * @param firstResult the first result
-     * @param maxResults  the max results
-     * @param requestParameters   the uri info
+     * @param firstResult       the first result
+     * @param maxResults        the max results
+     * @param requestParameters the uri info
      * @return the list of entities
      */
     List<TO> getAllAsList(Integer firstResult,
@@ -159,11 +160,11 @@ public interface ResourceService<TO extends PrimaryKey<K>, K> {
      * MaxResults parameter will be applied on the sql Query.If not provided it will default to configured value.
      * </pre>
      *
-     * @param stringField the field to use in filter, can only be a string value
-     * @param value       the string value to equal
-     * @param cut         the cut
-     * @param maxResults  the max results
-     * @param requestParameters     the uri info
+     * @param stringField       the field to use in filter, can only be a string value
+     * @param value             the string value to equal
+     * @param cut               the cut
+     * @param maxResults        the max results
+     * @param requestParameters the uri info
      * @return the list of entities matching
      */
     List<String> getAutocompleteStringFieldLikeValueAsSortedSet(String stringField,
@@ -183,11 +184,11 @@ public interface ResourceService<TO extends PrimaryKey<K>, K> {
      * MaxResults parameter will be applied on the sql Query.If not provided it will default to configured value.
      * </pre>
      *
-     * @param stringField the field to use in filter, can only be a string value
-     * @param value       the string value to equal
-     * @param cut         the cut
-     * @param maxResults  the max results
-     * @param requestParameters     the uri info
+     * @param stringField       the field to use in filter, can only be a string value
+     * @param value             the string value to equal
+     * @param cut               the cut
+     * @param maxResults        the max results
+     * @param requestParameters the uri info
      * @return the list of IdGroup object matching the input value
      */
     List<IdGroup<K>> getAutocompleteIdsStringFieldLikeValueAsList(String stringField,

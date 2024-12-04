@@ -17,7 +17,7 @@
 
 package io.github.agache41.rest.contract.update.updater;
 
-import io.github.agache41.rest.contract.dataAccess.PrimaryKey;
+import io.github.agache41.rest.contract.dataAccessBase.PrimaryKey;
 import io.github.agache41.rest.contract.update.TransferObject;
 
 import java.util.*;

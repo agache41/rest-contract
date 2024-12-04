@@ -19,15 +19,11 @@ package io.github.agache41.rest.contract.entities;
 
 import io.github.agache41.rest.contract.update.SelfTransferObject;
 import io.github.agache41.rest.contract.update.Update;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @Update
 public class Value2EntityTO implements SelfTransferObject<Value2EntityTO> {
 

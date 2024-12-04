@@ -15,7 +15,7 @@
  *    limitations under the License.
  */
 
-package io.github.agache41.rest.contract.dataAccess;
+package io.github.agache41.rest.contract.dataAccessBase;
 
 import io.github.agache41.rest.contract.exceptions.UnexpectedException;
 import io.github.agache41.rest.contract.update.TransferObject;

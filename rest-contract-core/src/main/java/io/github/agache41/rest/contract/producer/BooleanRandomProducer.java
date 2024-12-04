@@ -17,8 +17,14 @@
 
 package io.github.agache41.rest.contract.producer;
 
+/**
+ * The type Boolean random producer.
+ */
 public class BooleanRandomProducer extends Producer<Boolean> {
 
+    /**
+     * Instantiates a new Boolean random producer.
+     */
     public BooleanRandomProducer() {
         super(Boolean.class);
     }

@@ -17,8 +17,8 @@
 
 package io.github.agache41.rest.contract.resourceService;
 
-import io.github.agache41.rest.contract.dataAccess.IdGroup;
-import io.github.agache41.rest.contract.dataAccess.PrimaryKey;
+import io.github.agache41.rest.contract.dataAccessBase.IdGroup;
+import io.github.agache41.rest.contract.dataAccessBase.PrimaryKey;
 import io.restassured.http.ContentType;
 import jakarta.ws.rs.core.UriInfo;
 
@@ -367,7 +367,7 @@ public class ResourceServiceTestClient<T extends PrimaryKey<K>, K> implements Re
                .accept(ContentType.JSON)
                .delete(this.path + "/{id}", id.toString())
                .then()
-               .statusCode(anyOf(is(200),is(204)));
+               .statusCode(anyOf(is(200), is(204)));
     }
 
     /**
@@ -381,7 +381,7 @@ public class ResourceServiceTestClient<T extends PrimaryKey<K>, K> implements Re
                .accept(ContentType.JSON)
                .delete(this.path + "/byIds")
                .then()
-               .statusCode(anyOf(is(200),is(204)));
+               .statusCode(anyOf(is(200), is(204)));
     }
 
     /**
@@ -395,7 +395,7 @@ public class ResourceServiceTestClient<T extends PrimaryKey<K>, K> implements Re
                .accept(ContentType.JSON)
                .delete(this.path + "/byIds/{ids}", this.toString(ids))
                .then()
-               .statusCode(anyOf(is(200),is(204)));
+               .statusCode(anyOf(is(200), is(204)));
     }
 
     public void deleteAll() {

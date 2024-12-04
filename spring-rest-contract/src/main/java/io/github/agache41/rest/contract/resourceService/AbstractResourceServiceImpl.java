@@ -20,11 +20,10 @@ package io.github.agache41.rest.contract.resourceService;
 
 import io.github.agache41.rest.contract.dataAccess.DataAccess;
 import io.github.agache41.rest.contract.dataAccess.DataBinder;
-import io.github.agache41.rest.contract.dataAccess.IdGroup;
-import io.github.agache41.rest.contract.dataAccess.PrimaryKey;
+import io.github.agache41.rest.contract.dataAccessBase.IdGroup;
+import io.github.agache41.rest.contract.dataAccessBase.PrimaryKey;
 import io.github.agache41.rest.contract.update.TransferObject;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 

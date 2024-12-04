@@ -18,9 +18,9 @@
 package io.github.agache41.rest.contract.modell.resources;
 
 
+import io.github.agache41.rest.contract.entities.Modell2;
 import io.github.agache41.rest.contract.modell.dataBinder.Modell2DataBinder;
 import io.github.agache41.rest.contract.modell.dataaccess.Modell2DataAccess;
-import io.github.agache41.rest.contract.entities.Modell2;
 import io.github.agache41.rest.contract.resourceService.AbstractResourceServiceImpl;
 import lombok.Getter;
 

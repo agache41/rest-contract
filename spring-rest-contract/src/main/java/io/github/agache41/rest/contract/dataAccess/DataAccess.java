@@ -17,15 +17,11 @@
 
 package io.github.agache41.rest.contract.dataAccess;
 
+import io.github.agache41.rest.contract.dataAccessBase.AbstractDataAccess;
+import io.github.agache41.rest.contract.dataAccessBase.PrimaryKey;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
-import static jakarta.transaction.Transactional.TxType.REQUIRED;
 
 
 /**
@@ -51,6 +47,11 @@ public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> extends AbstractDataA
     @PersistenceContext
     protected EntityManager em;
 
+    /**
+     * Constructs a new DataAccess, based on the generic types
+     * @param type - the class for the type
+     * @param keyType - the class for the key
+     */
     public DataAccess(Class<ENTITY> type, Class<PK> keyType) {
         super(type, keyType);
     }

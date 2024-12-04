@@ -50,9 +50,9 @@ public class StringListParamConverterTest {
     public void testValues() {
 
         for (final String input : new String[]{"\"12\",\"23\",\"34\"", //
-                                               "\"aasasdcas\",\"fwrgrweg\",\"ergvregfreq\",\"regreqgfqergfq\"",//
-                                               "\"asdasd fdd\",\"§!\"$!§\"$\",\"\",\"fq\"",//
-                                               "\"\""//
+                "\"aasasdcas\",\"fwrgrweg\",\"ergvregfreq\",\"regreqgfqergfq\"",//
+                "\"asdasd fdd\",\"§!\"$!§\"$\",\"\",\"fq\"",//
+                "\"\""//
         }) {
 
             assertNotNull(this.slpc.fromString(input));

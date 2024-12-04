@@ -17,14 +17,10 @@
 
 package io.github.agache41.rest.contract.dataAccess;
 
+import io.github.agache41.rest.contract.dataAccessBase.AbstractDataBinder;
+import io.github.agache41.rest.contract.dataAccessBase.PrimaryKey;
 import io.github.agache41.rest.contract.update.TransferObject;
-import jakarta.transaction.Transactional;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
-import static jakarta.transaction.Transactional.TxType.REQUIRED;
 
 /**
  * The type Data binder.

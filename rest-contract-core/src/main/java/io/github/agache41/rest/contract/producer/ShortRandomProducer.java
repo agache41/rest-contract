@@ -17,10 +17,19 @@
 
 package io.github.agache41.rest.contract.producer;
 
+/**
+ * The type Short random producer.
+ */
 public class ShortRandomProducer extends Producer<Short> {
 
+    /**
+     * The Max.
+     */
     final short max = 10000;
 
+    /**
+     * Instantiates a new Short random producer.
+     */
     public ShortRandomProducer() {
         super(Short.class);
     }

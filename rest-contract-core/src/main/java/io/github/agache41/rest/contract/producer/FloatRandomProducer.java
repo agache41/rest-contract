@@ -17,9 +17,18 @@
 
 package io.github.agache41.rest.contract.producer;
 
+/**
+ * The type Float random producer.
+ */
 public class FloatRandomProducer extends Producer<Float> {
+    /**
+     * The Max.
+     */
     final short max = 10000;
 
+    /**
+     * Instantiates a new Float random producer.
+     */
     public FloatRandomProducer() {
         super(Float.class);
     }

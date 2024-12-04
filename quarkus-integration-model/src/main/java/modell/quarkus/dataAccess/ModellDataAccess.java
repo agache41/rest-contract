@@ -5,7 +5,6 @@ import io.github.agache41.rest.contract.dataAccess.DataAccess;
 import io.github.agache41.rest.contract.entities.Modell;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
-//import modell.quarkus.entities.Modell;
 
 import java.util.List;
 

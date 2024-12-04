@@ -4,6 +4,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
 
+/**
+ * The type String list converter.
+ */
 @Component
 public class StringListConverter extends ListParamConvertor<String> {
     /**

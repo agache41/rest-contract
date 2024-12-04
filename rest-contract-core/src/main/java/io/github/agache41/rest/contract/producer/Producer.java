@@ -19,7 +19,6 @@ package io.github.agache41.rest.contract.producer;
 
 import io.github.agache41.rest.contract.update.reflector.ClassReflector;
 import io.github.agache41.rest.contract.update.reflector.FieldReflector;
-//import jakarta.validation.constraints.NotNull;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -188,7 +187,7 @@ public class Producer<T> {
      * and can be used for initialization.
      *
      * @param postProduce the post produce
-     * @return producer
+     * @return producer producer
      */
     public Producer<T> withPostProduce(final Consumer<T> postProduce) {
         this.postProduce = postProduce;
@@ -340,6 +339,7 @@ public class Producer<T> {
      *
      * @param result         the result
      * @param fieldReflector the field reflector
+     * @param update         the update
      * @return the object
      */
     public Object produceField(final T result,

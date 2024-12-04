@@ -2,23 +2,30 @@ package io.github.agache41.rest.contract.configuration;
 
 import io.github.agache41.rest.contract.dataAccess.DataAccess;
 import io.github.agache41.rest.contract.dataAccess.DataBinder;
-import io.github.agache41.rest.contract.dataAccess.PrimaryKey;
+import io.github.agache41.rest.contract.dataAccessBase.PrimaryKey;
 import io.github.agache41.rest.contract.update.TransferObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.InjectionPoint;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.core.ResolvableType;
 
 import java.lang.reflect.Field;
 
-import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
-
+/**
+ * The type Rest contract configuration.
+ */
 @Configuration
 @ComponentScan("io.github.agache41.rest.contract.paramConverter")
 public class RestContractConfiguration {
 
-    Logger log = LoggerFactory.getLogger(RestContractConfiguration.class);
+    /**
+     * The constant log.
+     */
+    protected static final Logger log = Logger.getLogger(RestContractConfiguration.class);
 
     /**
      * <pre>
@@ -28,7 +35,10 @@ public class RestContractConfiguration {
      * DataAccess &#x3C;MyClass, PKey&#x3E; myClassDataAccess;
      * </pre>
      *
-     * @param ip the underlining injection point, provided by Spring Framework.
+     * @param <ENTITY> the type parameter
+     * @param <PK>     the type parameter
+     * @param ip       the underlining injection point, provided by Spring Framework.
+     * @return the data access
      */
     @Bean
     @Scope(value = "prototype")
@@ -46,7 +56,7 @@ public class RestContractConfiguration {
             if (secondGenParam == null)
                 throw new RuntimeException("Failure resolving generic parameter(1) for DataAccess in class " + field.getDeclaringClass()
                                                                                                                     .getSimpleName());
-            log.info("Autowiring field {}.{} with new DataAccess<{},{}>(...);", field.getDeclaringClass()
+            log.infof("Autowiring field %s.%s with new DataAccess<%s,%s>(...);", field.getDeclaringClass()
                                                                                      .getSimpleName(), field.getName(), firstGenParam.getSimpleName(), secondGenParam.getSimpleName());
             return new DataAccess<>(firstGenParam, secondGenParam);
         } else throw new RuntimeException("Only implemented for field autowiring.");
@@ -61,7 +71,11 @@ public class RestContractConfiguration {
      * DataBinder &#x3C;TypeClassTO, MyClass, PKey&#x3E; myClassDataBinder;
      * </pre>
      *
-     * @param ip the underlining injection point, provided by Spring Framework.
+     * @param <TO>     the type parameter
+     * @param <ENTITY> the type parameter
+     * @param <PK>     the type parameter
+     * @param ip       the underlining injection point, provided by Spring Framework.
+     * @return the data binder
      */
     @Bean
     @Scope(value = "prototype")
@@ -84,7 +98,7 @@ public class RestContractConfiguration {
             if (thirdGenParam == null)
                 throw new RuntimeException("Failure resolving generic parameter(2) for DataBinder in class " + field.getDeclaringClass()
                                                                                                                     .getSimpleName());
-            log.info("Autowiring field {}.{} with new DataBinder<{},{},{}>(...);", field.getDeclaringClass()
+            log.infof("Autowiring field %s.%s with new DataBinder<%s,%s,%s>(...);", field.getDeclaringClass()
                                                                                         .getSimpleName(), field.getName(), firstGenParam.getSimpleName(), secondGenParam.getSimpleName(), thirdGenParam.getSimpleName());
             return new DataBinder<>(firstGenParam, secondGenParam, thirdGenParam);
         } else throw new RuntimeException("Only implemented for field autowiring.");

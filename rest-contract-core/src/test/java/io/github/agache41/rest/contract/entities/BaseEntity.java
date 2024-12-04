@@ -32,59 +32,39 @@ import java.math.BigInteger;
 @MappedSuperclass
 public class BaseEntity {
     private static final long serialVersionUID = 7578664415534706949L;
-
-    public String getStringVal() {
-        return stringVal;
-    }
-
-    public void setStringVal(String stringVal) {
-        this.stringVal = stringVal;
-    }
-
     @Basic
     @Update(order = 2)
     private String stringVal;
-
     @Basic
     @Update(order = 3, length = 1)
     private String smallStringVal;
-
     @Basic
     @Update(order = 4, dynamic = false)
     private String stringValNotNull;
-
     @Basic
     @Update(order = 5)
     private Boolean booleanVal;
-
     @Basic
     @Update
     private Boolean isBoolean;
-
     @Basic
     @Update(dynamic = false)
     private boolean booVal;
-
     @Basic
     @Update(dynamic = false)
     private boolean isBool;
-
     @Basic
     @Update
     private Integer integerVal;
-
     @Basic
     @Update(dynamic = false)
     private int intVal;
-
     @Basic
     @Update
     private Long longVal;
-
     @Basic
     @Update(dynamic = false)
     private long longpVal;
-
     // todo: fixparse
     //
     //    @Basic
@@ -93,29 +73,32 @@ public class BaseEntity {
     @Basic
     @Update
     private BigInteger bigIntegerVal;
-
     @Basic
     @Column(name = "keyA", length = 4, updatable = false)
     private String keyA;
-
     @Basic
     @Column(name = "keyB", length = 4, updatable = false)
     private String keyB;
-
     @Basic
     @Column(name = "keyC", length = 4, updatable = false)
     private String keyC;
-
     @Update.excluded
     @Getter(value = AccessLevel.NONE)
     @Setter(value = AccessLevel.NONE)
     private String notUpdatable;
-
     @Update.excluded
     @Getter(value = AccessLevel.NONE)
     @Setter(value = AccessLevel.NONE)
     @Column(name = "vStringVal", length = 2, nullable = false)
     private String vStringVal;
+
+    public String getStringVal() {
+        return stringVal;
+    }
+
+    public void setStringVal(String stringVal) {
+        this.stringVal = stringVal;
+    }
 
     @Update(length = 2, nullable = false)
     public String getVirtualStringVal() {

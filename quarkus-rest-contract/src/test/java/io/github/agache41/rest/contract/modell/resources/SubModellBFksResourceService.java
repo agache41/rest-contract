@@ -17,9 +17,9 @@
 
 package io.github.agache41.rest.contract.modell.resources;
 
+import io.github.agache41.rest.contract.entities.SubModellBFks;
 import io.github.agache41.rest.contract.modell.dataBinder.SubModellBFksDataBinder;
 import io.github.agache41.rest.contract.modell.dataaccess.SubModellBFksDataAccess;
-import io.github.agache41.rest.contract.entities.SubModellBFks;
 import io.github.agache41.rest.contract.resourceService.AbstractResourceServiceImpl;
 import lombok.Getter;
 

@@ -17,16 +17,15 @@
 
 package io.github.agache41.rest.contract.dataAccess;
 
+import io.github.agache41.rest.contract.dataAccessBase.AbstractDataBinder;
+import io.github.agache41.rest.contract.dataAccessBase.PrimaryKey;
 import io.github.agache41.rest.contract.update.TransferObject;
 import jakarta.enterprise.context.Dependent;
 import jakarta.enterprise.inject.spi.InjectionPoint;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.transaction.Transactional;
 
 import java.lang.reflect.ParameterizedType;
-
-import static jakarta.transaction.Transactional.TxType.REQUIRED;
 
 /**
  * The type Data binder.
@@ -37,7 +36,6 @@ import static jakarta.transaction.Transactional.TxType.REQUIRED;
  */
 @Dependent
 @Named("DataBinder")
-@Transactional(REQUIRED)
 public class DataBinder<TO extends PrimaryKey<PK> & TransferObject<TO, ENTITY>, ENTITY extends PrimaryKey<PK>, PK> extends AbstractDataBinder<TO, ENTITY, PK> {
 
     /**

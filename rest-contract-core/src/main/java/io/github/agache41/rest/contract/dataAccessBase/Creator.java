@@ -15,9 +15,10 @@
  *    limitations under the License.
  */
 
-package io.github.agache41.rest.contract.dataAccess;
+package io.github.agache41.rest.contract.dataAccessBase;
 
 import io.github.agache41.rest.contract.utils.ReflectionUtils;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 

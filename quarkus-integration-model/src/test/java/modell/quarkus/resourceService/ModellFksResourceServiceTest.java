@@ -8,8 +8,6 @@ import io.github.agache41.rest.contract.resourceService.ResourceService;
 import io.github.agache41.rest.contract.resourceService.ResourceServiceTestClient;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.transaction.Transactional;
-//import modell.quarkus.entities.ModellFks;
-//import modell.quarkus.entities.SubModellAFks;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
@@ -44,11 +42,11 @@ public class ModellFksResourceServiceTest extends AbstractResourceServiceImplTes
 
     public ModellFksResourceServiceTest() {
         super(ModellFks.class, //
-              path, //
-              insertData, //
-              updateData, //
-              stringField, //
-              producer); //
+                path, //
+                insertData, //
+                updateData, //
+                stringField, //
+                producer); //
     }
 
     @Test

@@ -152,7 +152,7 @@ public class ReflectionUtils {
 
             return enclosingClass.getMethod(
                     SETTER_PREFIX +
-                    StringUtils.capitalize(name),
+                            StringUtils.capitalize(name),
                     type);
         } catch (final NoSuchMethodException e) { // no setter
             if (name.startsWith("is") && (boolean.class.equals(type) || Boolean.class.equals(type))) {
@@ -164,7 +164,7 @@ public class ReflectionUtils {
             }
         } catch (final SecurityException e) { // setter is faulty
             throw new IllegalArgumentException(e.getMessage() + " looking for method " + enclosingClass.getSimpleName() + "." + SETTER_PREFIX +
-                                               StringUtils.capitalize(name) + "( " + type.getSimpleName() + " value )", e);
+                    StringUtils.capitalize(name) + "( " + type.getSimpleName() + " value )", e);
         }
         return null;
     }

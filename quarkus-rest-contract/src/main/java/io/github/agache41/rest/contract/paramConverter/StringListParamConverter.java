@@ -33,7 +33,7 @@ public class StringListParamConverter extends ListParamConvertor<String> {
      */
     public StringListParamConverter(final Logger log) {
         super(Function.identity(),
-              Function.identity(),
-              log);
+                Function.identity(),
+                log);
     }
 }

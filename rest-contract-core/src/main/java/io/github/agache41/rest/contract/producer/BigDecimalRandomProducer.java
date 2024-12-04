@@ -19,9 +19,18 @@ package io.github.agache41.rest.contract.producer;
 
 import java.math.BigDecimal;
 
+/**
+ * The type Big decimal random producer.
+ */
 public class BigDecimalRandomProducer extends Producer<BigDecimal> {
+    /**
+     * The Max.
+     */
     final short max = 10000;
 
+    /**
+     * Instantiates a new Big decimal random producer.
+     */
     public BigDecimalRandomProducer() {
         super(BigDecimal.class);
     }

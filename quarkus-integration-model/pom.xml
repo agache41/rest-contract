@@ -1,36 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
+    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>io.github.agache41</groupId>
         <artifactId>rest-contract</artifactId>
-        <version>1.0.0</version>
+        <version>${revision}</version>
+        <relativePath>./../pom.xml</relativePath>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
     <artifactId>quarkus-integration-model</artifactId>
-    <version>1.0.0</version>
-
+    <version>${revision}</version>
+    <name>Quarkus Test Ground for Rest Contract API</name>
+    <description>Demo project for Quarkus Integration</description>
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <maven.compiler.parameters>true</maven.compiler.parameters>
-        <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
         <quarkus.platform.version>3.6.7</quarkus.platform.version>
-        <compiler-plugin.version>3.11.0</compiler-plugin.version>
-        <surefire-plugin.version>3.1.2</surefire-plugin.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.swagger-codegen-maven-plugin>3.0.0-rc1</version.swagger-codegen-maven-plugin>
         <quarkus.analytics.disabled>true</quarkus.analytics.disabled>
-        <!-- version of the tested library -->
-        <generic-rest-jpa.version>0.4.1</generic-rest-jpa.version>
-        <quarkus-rest-contract.version>1.0.0</quarkus-rest-contract.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>${quarkus.platform.group-id}</groupId>
-                <artifactId>${quarkus.platform.artifact-id}</artifactId>
+                <groupId>io.quarkus.platform</groupId>
+                <artifactId>quarkus-bom</artifactId>
                 <version>${quarkus.platform.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -48,18 +39,14 @@
             <!--            <artifactId>quarkus-resteasy-reactive-jackson</artifactId>-->
             <!--            <artifactId>quarkus-resteasy-reactive-jsonb</artifactId>-->
         </dependency>
-        <!-- Hibernate ORM specific dependencies -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-hibernate-orm</artifactId>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.30</version>
-            <scope>provided</scope>
         </dependency>
         <!-- JDBC driver dependencies -->
         <dependency>
@@ -69,7 +56,6 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jdbc-h2</artifactId>
-            <!--            <scope>test</scope>-->
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -83,19 +69,17 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-openapi</artifactId>
         </dependency>
-
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-hibernate6</artifactId>
             <version>2.16.1</version>
         </dependency>
-
-        <!-- the baby -->
         <dependency>
             <groupId>io.github.agache41</groupId>
             <artifactId>quarkus-rest-contract</artifactId>
-            <version>1.0.0</version>
+            <version>${revision}</version>
         </dependency>
+        <!-- Test dependencies-->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
@@ -115,7 +99,7 @@
         <dependency>
             <groupId>io.github.agache41</groupId>
             <artifactId>quarkus-rest-contract</artifactId>
-            <version>1.0.0</version>
+            <version>${revision}</version>
             <classifier>tests</classifier>
             <type>test-jar</type>
             <scope>test</scope>
@@ -123,32 +107,15 @@
         <dependency>
             <groupId>io.github.agache41</groupId>
             <artifactId>rest-contract-core</artifactId>
-            <version>1.0.0</version>
+            <version>${revision}</version>
             <classifier>tests</classifier>
             <type>test-jar</type>
-<!--            <scope>test</scope>-->
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${compiler-plugin.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${surefire-plugin.version}</version>
-                <configuration>
-                    <systemPropertyVariables>
-                        <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                    </systemPropertyVariables>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>${quarkus.platform.group-id}</groupId>
+                <groupId>io.quarkus.platform</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
                 <version>${quarkus.platform.version}</version>
                 <executions>
@@ -160,26 +127,9 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.6.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>sources</goal>
-                            <goal>resolve</goal>
-                        </goals>
-                        <configuration>
-                            <silent>true</silent>
-                            <classifier>javadoc</classifier>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>2.7</version>
+                <version>2.18.0</version>
                 <configuration>
                     <excludes>
                         <exclude>org.apache.commons:commons-collections4</exclude>
@@ -204,7 +154,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>${surefire-plugin.version}</version>
+                        <version>3.5.2</version>
                         <executions>
                             <execution>
                                 <goals>

@@ -17,8 +17,9 @@
 
 package io.github.agache41.rest.contract.resourceService;
 
-import io.github.agache41.rest.contract.dataAccess.IdGroup;
-import io.github.agache41.rest.contract.dataAccess.PrimaryKey;
+import io.github.agache41.rest.contract.dataAccessBase.IdGroup;
+import io.github.agache41.rest.contract.dataAccessBase.PrimaryKey;
+import io.github.agache41.rest.contract.resourceServiceBase.ResourceServiceConfig;
 import jakarta.ws.rs.core.UriInfo;
 
 import java.util.List;

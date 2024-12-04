@@ -17,10 +17,22 @@
 
 package io.github.agache41.rest.contract.producer;
 
+/**
+ * The type Integer random producer.
+ */
 public class IntegerRandomProducer extends Producer<Integer> {
+    /**
+     * The Min.
+     */
     final long min = 1000;
+    /**
+     * The Max.
+     */
     final int max = 100000;
 
+    /**
+     * Instantiates a new Integer random producer.
+     */
     public IntegerRandomProducer() {
         super(Integer.class);
     }

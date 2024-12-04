@@ -6,11 +6,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+/**
+ * The type Duration logger.
+ */
 public class DurationLogger {
     private static final Boolean ENABLED = true;
     private static final Logger logger = Logger.getLogger(DurationLogger.class);
     private static final Map<String, Long> START_TIMES = new HashMap<>();
 
+    /**
+     * Start.
+     *
+     * @param context the context
+     */
     public void start(String context) {
         if (ENABLED) {
             Long startTime = System.currentTimeMillis();
@@ -19,6 +27,11 @@ public class DurationLogger {
         }
     }
 
+    /**
+     * Finish.
+     *
+     * @param context the context
+     */
     public void finish(String context) {
         if (ENABLED) {
             Long finishTime = System.currentTimeMillis();
@@ -33,6 +46,9 @@ public class DurationLogger {
         }
     }
 
+    /**
+     * Reset.
+     */
     public void reset() {
         START_TIMES.clear();
     }

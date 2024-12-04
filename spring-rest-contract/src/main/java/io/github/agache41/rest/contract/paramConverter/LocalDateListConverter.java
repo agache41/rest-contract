@@ -4,6 +4,9 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
+/**
+ * The type Local date list converter.
+ */
 @Component
 public class LocalDateListConverter extends ListParamConvertor<LocalDate> {
 

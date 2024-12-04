@@ -51,11 +51,11 @@ public class ModellFksResourceServiceTest extends AbstractResourceServiceImplTes
 
     public ModellFksResourceServiceTest() {
         super(new ModellFksResourceService(),
-              ModellFks.class, //
-              insertData, //
-              updateData,
-              stringField,
-              producer); //
+                ModellFks.class, //
+                insertData, //
+                updateData,
+                stringField,
+                producer); //
     }
 
     @BeforeEach

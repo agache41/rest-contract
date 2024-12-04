@@ -17,12 +17,21 @@
 
 package io.github.agache41.rest.contract.producer;
 
+/**
+ * The type String random producer.
+ */
 public class StringRandomProducer extends Producer<String> {
 
+    /**
+     * The constant charset.
+     */
     public static final char[] charset = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz$-_+!*'()".toCharArray();
     private static final int max = charset.length - 1;
     private static final int targetStringLength = 12;
 
+    /**
+     * Instantiates a new String random producer.
+     */
     public StringRandomProducer() {
         super(String.class);
     }

@@ -11,7 +11,6 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import lombok.Getter;
 import modell.quarkus.dataAccess.ModellDataAccess;
-//import modell.quarkus.entities.Modell;
 
 import java.util.List;
 

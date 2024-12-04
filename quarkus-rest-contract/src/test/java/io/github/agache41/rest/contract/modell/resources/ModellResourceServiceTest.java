@@ -55,10 +55,10 @@ public class ModellResourceServiceTest extends AbstractResourceServiceImplTest<M
 
     public ModellResourceServiceTest() {
         super(new ModellResourceService(), Modell.class, //
-              insertData,   //
-              updateData,   //
-              stringField,
-              producer); //
+                insertData,   //
+                updateData,   //
+                stringField,
+                producer); //
         //this.useUpdateEquals = true;
     }
 

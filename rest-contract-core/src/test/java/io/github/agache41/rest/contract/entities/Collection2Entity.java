@@ -17,21 +17,21 @@
 
 package io.github.agache41.rest.contract.entities;
 
-import io.github.agache41.rest.contract.dataAccess.PrimaryKey;
+import io.github.agache41.rest.contract.dataAccessBase.PrimaryKey;
 import io.github.agache41.rest.contract.update.SelfTransferObject;
 import io.github.agache41.rest.contract.update.Update;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
 @Data
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Collection2Entity implements PrimaryKey<Long>, SelfTransferObject<Collection2Entity>/*, Comparable<CollectionEntity>*/ {
     private static final long serialVersionUID = 8745762771533098273L;

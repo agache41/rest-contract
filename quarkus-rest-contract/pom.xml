@@ -22,13 +22,14 @@
     <parent>
         <groupId>io.github.agache41</groupId>
         <artifactId>rest-contract</artifactId>
-        <version>1.0.0</version>
+        <version>${revision}</version>
+        <relativePath>./../pom.xml</relativePath>
     </parent>
     <artifactId>quarkus-rest-contract</artifactId>
-    <version>1.0.0</version>
+    <version>${revision}</version>
     <packaging>jar</packaging>
 
-    <name>Generic REST Resources Service API and Data Access over JPA for JEE / Quarkus</name>
+    <name>Rest Contract API and Data Access over JPA for JEE / Quarkus</name>
     <description>
         Generic REST JPA is a JEE library targeted on creating generic Resource Services and Data Access Layers on top
         of JPA and CDI.
@@ -56,19 +57,11 @@
         <developerConnection>scm:git:https://github.com/agache41/generic-rest-jpa.git</developerConnection>
         <url>https://github.com/agache41/generic-rest-jpa</url>
     </scm>
-
-    <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <maven.compiler.parameters>true</maven.compiler.parameters>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>io.github.agache41</groupId>
             <artifactId>rest-contract-core</artifactId>
-            <version>1.0.0</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>jakarta.enterprise</groupId>
@@ -95,12 +88,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>jakarta.transaction</groupId>
-            <artifactId>jakarta.transaction-api</artifactId>
-            <version>2.0.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging</artifactId>
             <version>3.5.3.Final</version>
@@ -110,7 +97,7 @@
         <dependency>
             <groupId>io.github.agache41</groupId>
             <artifactId>rest-contract-core</artifactId>
-            <version>1.0.0</version>
+            <version>${revision}</version>
             <classifier>tests</classifier>
             <type>test-jar</type>
             <scope>test</scope>
@@ -170,100 +157,77 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.11.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <failOnWarnings>true</failOnWarnings>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.simplify4u.plugins</groupId>
+                        <artifactId>sign-maven-plugin</artifactId>
+                        <version>1.0.1</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
 
-    <!--    <build>-->
-    <!--        <plugins>-->
-    <!--            <plugin>-->
-    <!--                <groupId>org.apache.maven.plugins</groupId>-->
-    <!--                <artifactId>maven-compiler-plugin</artifactId>-->
-    <!--                <version>3.12.1</version>-->
-    <!--                <configuration>-->
-    <!--                    <source>${maven.compiler.source}</source>-->
-    <!--                    <target>${maven.compiler.target}</target>-->
-    <!--                </configuration>-->
-    <!--            </plugin>-->
-    <!--            <plugin>-->
-    <!--                <groupId>org.apache.maven.plugins</groupId>-->
-    <!--                <artifactId>maven-source-plugin</artifactId>-->
-    <!--                <version>3.3.1</version>-->
-    <!--                <executions>-->
-    <!--                    <execution>-->
-    <!--                        <id>attach-sources</id>-->
-    <!--                        <goals>-->
-    <!--                            <goal>jar-no-fork</goal>-->
-    <!--                        </goals>-->
-    <!--                    </execution>-->
-    <!--                </executions>-->
-    <!--            </plugin>-->
-    <!--            <plugin>-->
-    <!--                <groupId>org.apache.maven.plugins</groupId>-->
-    <!--                <artifactId>maven-javadoc-plugin</artifactId>-->
-    <!--                <version>3.6.3</version>-->
-    <!--                <executions>-->
-    <!--                    <execution>-->
-    <!--                        <id>attach-javadocs</id>-->
-    <!--                        <goals>-->
-    <!--                            <goal>jar</goal>-->
-    <!--                        </goals>-->
-    <!--                        <configuration>-->
-    <!--                            <failOnWarnings>true</failOnWarnings>-->
-    <!--                        </configuration>-->
-    <!--                    </execution>-->
-    <!--                </executions>-->
-    <!--            </plugin>-->
-    <!--            <plugin>-->
-    <!--                <groupId>org.apache.maven.plugins</groupId>-->
-    <!--                <artifactId>maven-jar-plugin</artifactId>-->
-    <!--                <version>3.3.0</version>-->
-    <!--                <executions>-->
-    <!--                    <execution>-->
-    <!--                        <goals>-->
-    <!--                            <goal>test-jar</goal>-->
-    <!--                        </goals>-->
-    <!--                    </execution>-->
-    <!--                </executions>-->
-    <!--            </plugin>-->
-    <!--        </plugins>-->
-    <!--    </build>-->
-    <!--    <profiles>-->
-    <!--        <profile>-->
-    <!--            <id>release</id>-->
-    <!--            <build>-->
-    <!--                <plugins>-->
-    <!--                    <plugin>-->
-    <!--                        <groupId>org.simplify4u.plugins</groupId>-->
-    <!--                        <artifactId>sign-maven-plugin</artifactId>-->
-    <!--                        <version>1.0.1</version>-->
-    <!--                        <executions>-->
-    <!--                            <execution>-->
-    <!--                                <goals>-->
-    <!--                                    <goal>sign</goal>-->
-    <!--                                </goals>-->
-
-    <!--                            </execution>-->
-    <!--                        </executions>-->
-    <!--                        <configuration>-->
-    <!--                            <serverId>sign-key-id</serverId>-->
-    <!--                            <skipNoKey>false</skipNoKey>-->
-    <!--                        </configuration>-->
-    <!--                    </plugin>-->
-    <!--                    <plugin>-->
-    <!--                        <groupId>org.sonatype.central</groupId>-->
-    <!--                        <artifactId>central-publishing-maven-plugin</artifactId>-->
-    <!--                        <version>0.3.0</version>-->
-    <!--                        <extensions>true</extensions>-->
-    <!--                        <configuration>-->
-    <!--                            <publishingServerId>central</publishingServerId>-->
-    <!--                            <tokenAuth>true</tokenAuth>-->
-    <!--                            <autoPublish>true</autoPublish>-->
-    <!--                            <waitUntil>published</waitUntil>-->
-    <!--                            &lt;!&ndash;  Use this to test the deployment &ndash;&gt;-->
-    <!--                            &lt;!&ndash; <autoPublish>false</autoPublish> &ndash;&gt;-->
-    <!--                            &lt;!&ndash; <waitUntil>validated</waitUntil> &ndash;&gt;-->
-    <!--                        </configuration>-->
-    <!--                    </plugin>-->
-    <!--                </plugins>-->
-    <!--            </build>-->
-    <!--        </profile>-->
-    <!--    </profiles>-->
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <serverId>sign-key-id</serverId>
+                            <skipNoKey>false</skipNoKey>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.6.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <tokenAuth>true</tokenAuth>
+                            <autoPublish>true</autoPublish>
+                            <waitUntil>published</waitUntil>
+                            <!--  Use this to test the deployment -->
+                            <!-- <autoPublish>false</autoPublish> -->
+                            <!-- <waitUntil>validated</waitUntil> -->
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

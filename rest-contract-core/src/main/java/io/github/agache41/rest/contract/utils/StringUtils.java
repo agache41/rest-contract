@@ -29,7 +29,7 @@ public class StringUtils {
      * </pre>
      *
      * @param input the input
-     * @return string
+     * @return string string
      */
     public static String capitalize(final String input) {
         if (input == null || input.isEmpty()) {
@@ -45,7 +45,7 @@ public class StringUtils {
      * </pre>
      *
      * @param input the input
-     * @return string
+     * @return string string
      */
     public static String deCapitalize(final String input) {
         if (input == null || input.isEmpty()) {
