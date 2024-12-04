@@ -69,7 +69,7 @@ public class ListParamConvertor<T> implements ParamConverter<List<T>> {
             return Collections.emptyList();
         }
         try {
-            final List<T> result = Stream.of(value.substring(1, value.length() - 1)
+            final List<T> result = Stream.of(value//.substring(1, value.length() - 1)
                                                   .split(","))
                                          .filter(Objects::nonNull)
                                          .map(this.parse)
@@ -85,15 +85,15 @@ public class ListParamConvertor<T> implements ParamConverter<List<T>> {
     @Override
     public String toString(final List<T> value) {
         if (value == null || value.isEmpty()) {
-            return "[]";
+            return "";
         }
         try {
             return value.stream()
                         .map(this.format)
-                        .collect(Collectors.joining(",", "[", "]"));
+                        .collect(Collectors.joining(","));//, "[", "]"));
         } catch (final Exception e) {
             this.log.error(" When formatting list \"" + value + "\" as a json list.", e);
         }
-        return "[]";
+        return "";
     }
 }

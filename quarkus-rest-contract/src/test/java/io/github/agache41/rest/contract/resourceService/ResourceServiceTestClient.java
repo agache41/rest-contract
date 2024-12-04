@@ -415,12 +415,12 @@ public class ResourceServiceTestClient<T extends PrimaryKey<K>, K> implements Re
     protected String toString(final List<K> values) {
         return values.stream()
                      .map(Object::toString)
-                     .collect(Collectors.joining(",", "[", "]"));
+                     .collect(Collectors.joining(","));//, "[", "]"));
     }
 
     protected String join(final List<String> values) {
         return values.stream()
                      .map(Object::toString)
-                     .collect(Collectors.joining(",", "[", "]"));
+                     .collect(Collectors.joining(","));//, "[", "]"));
     }
 }

@@ -34,7 +34,7 @@ public class StringListParamConverterTest {
         assertTrue(this.slpc.fromString(null)
                             .isEmpty());
         assertNotNull(this.slpc.toString(null));
-        assertEquals("[]", this.slpc.toString(null));
+        assertEquals("", this.slpc.toString(null));
     }
 
     @Test
@@ -43,16 +43,16 @@ public class StringListParamConverterTest {
         assertTrue(this.slpc.fromString("")
                             .isEmpty());
         assertNotNull(this.slpc.toString(Collections.emptyList()));
-        assertEquals("[]", this.slpc.toString(Collections.emptyList()));
+        assertEquals("", this.slpc.toString(Collections.emptyList()));
     }
 
     @Test
     public void testValues() {
 
-        for (final String input : new String[]{"[\"12\",\"23\",\"34\"]", //
-                                               "[\"aasasdcas\",\"fwrgrweg\",\"ergvregfreq\",\"regreqgfqergfq\"]",//
-                                               "[\"asdasd fdd\",\"§!\"$!§\"$\",\"\",\"fq\"]",//
-                                               "[\"\"]"//
+        for (final String input : new String[]{"\"12\",\"23\",\"34\"", //
+                                               "\"aasasdcas\",\"fwrgrweg\",\"ergvregfreq\",\"regreqgfqergfq\"",//
+                                               "\"asdasd fdd\",\"§!\"$!§\"$\",\"\",\"fq\"",//
+                                               "\"\""//
         }) {
 
             assertNotNull(this.slpc.fromString(input));
