@@ -24,32 +24,19 @@ import io.github.agache41.rest.contract.entities.Modell;
 import io.github.agache41.rest.contract.resourceService.AbstractResourceServiceImpl;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import static jakarta.transaction.Transactional.TxType.REQUIRED;
 
 @Getter
 @RestController
 @RequestMapping("/modell")
-@Transactional
-@jakarta.transaction.Transactional(REQUIRED)
 public class ModellResourceService extends AbstractResourceServiceImpl<Modell, Modell, Long> {
 
 
     @Autowired
-    protected DataAccess<Modell,Long> dataAccess;
+    protected DataAccess<Modell, Long> dataAccess;
 
 
     @Autowired
-    protected DataBinder<Modell,Modell,Long> dataBinder;
-
-
-//    protected ModellDataBinder dataBinder = new ModellDataBinder();
-//    protected ModellDataAccess dataAccess = new ModellDataAccess();
-//
-//    public ModellResourceService() {
-//        this.postConstruct();
-//    }
+    protected DataBinder<Modell, Modell, Long> dataBinder;
 }

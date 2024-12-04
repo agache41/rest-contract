@@ -38,7 +38,7 @@
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
 
             <!-- Set this false to reduce unnecessary logging-->
-            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.show_sql" value="false"/>
 
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.highlight_sql" value="true"/>

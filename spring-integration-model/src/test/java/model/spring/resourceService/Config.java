@@ -18,11 +18,18 @@
 package model.spring.resourceService;
 
 import io.github.agache41.rest.contract.producer.Producer;
+import io.restassured.RestAssured;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
 
 public class Config {
     public static final int collectionSize = 2;
 
     static {
         Producer.setDefaultSize(collectionSize);
+    }
+
+    static {
+        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
     }
 }

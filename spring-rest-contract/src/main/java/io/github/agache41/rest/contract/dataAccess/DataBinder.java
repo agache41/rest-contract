@@ -19,6 +19,8 @@ package io.github.agache41.rest.contract.dataAccess;
 
 import io.github.agache41.rest.contract.update.TransferObject;
 import jakarta.transaction.Transactional;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +34,6 @@ import static jakarta.transaction.Transactional.TxType.REQUIRED;
  * @param <PK>     the type parameter
  */
 @Service("DataBinder")
-@Transactional(REQUIRED)
 public class DataBinder<TO extends PrimaryKey<PK> & TransferObject<TO, ENTITY>, ENTITY extends PrimaryKey<PK>, PK> extends AbstractDataBinder<TO, ENTITY, PK> {
 
     /**

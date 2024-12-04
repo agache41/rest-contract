@@ -18,15 +18,12 @@
 package model.spring.resourceService;
 
 
+import io.github.agache41.rest.contract.configuration.RestContractCoreTestPersistenceConfiguration;
 import io.github.agache41.rest.contract.entities.Modell;
 import io.github.agache41.rest.contract.producer.Producer;
 import io.github.agache41.rest.contract.resourceService.AbstractResourceServiceImplTest;
-import model.spring.resourceService.Config;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.context.annotation.Import;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -36,9 +33,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 
 @SpringBootTest(webEnvironment = DEFINED_PORT)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@Transactional
+@Import(RestContractCoreTestPersistenceConfiguration.class)
 public class ModellResourceServiceTest extends AbstractResourceServiceImplTest<Modell, Long> {
 
     static final String path = "/modell";
@@ -46,10 +41,6 @@ public class ModellResourceServiceTest extends AbstractResourceServiceImplTest<M
     private static final Producer<Modell> producer;
     private static final List<Modell> insertData;
     private static final List<Modell> updateData;
-
-//    static {
-//        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-//    }
 
     static {
         producer = Producer.ofClass(Modell.class)

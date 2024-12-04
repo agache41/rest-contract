@@ -20,6 +20,9 @@ package io.github.agache41.rest.contract.dataAccess;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import static jakarta.transaction.Transactional.TxType.REQUIRED;
@@ -39,7 +42,6 @@ import static jakarta.transaction.Transactional.TxType.REQUIRED;
  * @param <PK>     the type parameter
  */
 @Service("DataAccess")
-@Transactional(REQUIRED)
 public class DataAccess<ENTITY extends PrimaryKey<PK>, PK> extends AbstractDataAccess<ENTITY, PK> {
     /**
      * <pre>

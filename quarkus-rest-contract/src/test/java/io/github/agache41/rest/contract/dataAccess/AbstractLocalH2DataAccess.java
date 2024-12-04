@@ -17,7 +17,7 @@
 
 package io.github.agache41.rest.contract.dataAccess;
 
-import io.github.agache41.rest.contract.entities.RestContractCoreConstants;
+import io.github.agache41.rest.contract.RestContractCoreConstants;
 import io.github.agache41.rest.contract.update.SelfTransferObject;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;

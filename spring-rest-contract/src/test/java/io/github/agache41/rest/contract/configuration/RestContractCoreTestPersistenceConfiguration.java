@@ -7,10 +7,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 
 @Configuration
-//@ComponentScan("io.github.agache41.rest.contract")
-public class RestContractTestConfiguration {
+public class RestContractCoreTestPersistenceConfiguration {
 
-    Logger log = LoggerFactory.getLogger(RestContractTestConfiguration.class);
+    Logger log = LoggerFactory.getLogger(RestContractCoreTestPersistenceConfiguration.class);
 
     @Bean
     public LocalEntityManagerFactoryBean entityManagerFactory() {

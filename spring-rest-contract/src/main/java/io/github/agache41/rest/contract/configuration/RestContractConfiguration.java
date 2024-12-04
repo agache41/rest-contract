@@ -7,19 +7,15 @@ import io.github.agache41.rest.contract.update.TransferObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InjectionPoint;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ConversionServiceFactoryBean;
+import org.springframework.context.annotation.*;
 import org.springframework.core.ResolvableType;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.lang.reflect.Field;
-import java.util.HashSet;
-import java.util.Set;
+
+import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
 
 @Configuration
-@EnableTransactionManagement
+@ComponentScan("io.github.agache41.rest.contract.paramConverter")
 public class RestContractConfiguration {
 
     Logger log = LoggerFactory.getLogger(RestContractConfiguration.class);
@@ -35,6 +31,7 @@ public class RestContractConfiguration {
      * @param ip the underlining injection point, provided by Spring Framework.
      */
     @Bean
+    @Scope(value = "prototype")
     public <ENTITY extends PrimaryKey<PK>, PK> DataAccess<ENTITY, PK> dataAccess(InjectionPoint ip) {
         final Field field = ip.getField();
         if (field != null) {
@@ -67,6 +64,7 @@ public class RestContractConfiguration {
      * @param ip the underlining injection point, provided by Spring Framework.
      */
     @Bean
+    @Scope(value = "prototype")
     public <TO extends PrimaryKey<PK> & TransferObject<TO, ENTITY>, ENTITY extends PrimaryKey<PK>, PK> DataBinder<TO, ENTITY, PK> dataBinder(InjectionPoint ip) {
         final Field field = ip.getField();
         if (field != null) {
@@ -91,22 +89,4 @@ public class RestContractConfiguration {
             return new DataBinder<>(firstGenParam, secondGenParam, thirdGenParam);
         } else throw new RuntimeException("Only implemented for field autowiring.");
     }
-
-//    @Bean
-//    public PlatformTransactionManager platformTransactionManager(){
-//        return new JtaTransactionManager();
-//    }
-
-
-//    @Bean(name="conversionService")
-//    public ConversionServiceFactoryBean getConversionService() {
-//        ConversionServiceFactoryBean bean = new ConversionServiceFactoryBean();
-//
-//        Set<Converter> converters = new HashSet<>();
-//
-//        converters.add(new LongListConverter());
-//
-//        bean.setConverters(converters);
-//        return bean;
-//    }
 }
