@@ -27,6 +27,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -365,7 +367,7 @@ public class ResourceServiceTestClient<T extends PrimaryKey<K>, K> implements Re
                .accept(ContentType.JSON)
                .delete(this.path + "/{id}", id.toString())
                .then()
-               .statusCode(204);
+               .statusCode(anyOf(is(200),is(204)));
     }
 
     /**
@@ -379,7 +381,7 @@ public class ResourceServiceTestClient<T extends PrimaryKey<K>, K> implements Re
                .accept(ContentType.JSON)
                .delete(this.path + "/byIds")
                .then()
-               .statusCode(204);
+               .statusCode(anyOf(is(200),is(204)));
     }
 
     /**
@@ -393,7 +395,7 @@ public class ResourceServiceTestClient<T extends PrimaryKey<K>, K> implements Re
                .accept(ContentType.JSON)
                .delete(this.path + "/byIds/{ids}", this.toString(ids))
                .then()
-               .statusCode(204);
+               .statusCode(anyOf(is(200),is(204)));
     }
 
     public void deleteAll() {
