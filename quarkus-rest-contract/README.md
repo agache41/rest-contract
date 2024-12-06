@@ -42,9 +42,13 @@ Let's start with a database table named Modell and the associated JPA Entity.
 ### Entity
 
 Let the **entity** implement
-the [PrimaryKey](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/dataAccessBase/PrimaryKey.java) and
-the [SelfTransferObject](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/SelfTransferObject.java) interfaces :
+the [PrimaryKey](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/dataAccessBase/PrimaryKey.java)
+and
+the [SelfTransferObject](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/SelfTransferObject.java)
+interfaces :
+
 ```java
+
 @Data
 @NoArgsConstructor
 @Entity
@@ -81,7 +85,7 @@ from [AbstractResourceServiceImpl](../quarkus-rest-contract/src/main/java/io/git
 
 @Path("/modell")
 @Transactional
-public class ModellResourceService extends AbstractResourceServiceImpl<Modell, Modell, Long>{
+public class ModellResourceService extends AbstractResourceServiceImpl<Modell, Modell, Long> {
 }
 ```
 
@@ -91,9 +95,11 @@ For the **Modell** entity the following REST services are available :
 
 - GET /modell/{id} - finds and returns the corresponding entity for the given path id.
 - POST /modell/byId - finds and returns the corresponding entity for the given body id using POST.
-- GET /modell/all/asList - returns all the entities for the given table.**Filter Parameters** and **Pagination Parameters** can be used to filter the list. 
+- GET /modell/all/asList - returns all the entities for the given table.**Filter Parameters** and **Pagination
+  Parameters** can be used to filter the list.
 - GET /modell/byIds/{ids}/asList - finds and returns the corresponding entity for the given list of id's.
-- POST /modell/byIds/asList - finds and returns the corresponding entity for the given list of id's in the body using POST.
+- POST /modell/byIds/asList - finds and returns the corresponding entity for the given list of id's in the body using
+  POST.
 - GET /modell/filter/{stringField}/equals/{value}/asList - finds all entities whose value in a specified string field is
   equal to the given value. **Pagination Parameters** can be applied.
 - GET /modell/filter/{stringField}/like/{value}/asList - finds all entities whose value in a specified field is like the
@@ -103,8 +109,10 @@ For the **Modell** entity the following REST services are available :
 - GET /modell/autocomplete/{stringField}/like/{value}/asSortedSet - finds all values in a field whose value is like the
   given value.**Autocomplete Parameters**,**Filter Parameters** and **Pagination Parameters** can be applied.
 - GET /modell/autocompleteIds/{stringField}/like/{value}/asList - finds all entities whose value in a field is like the
-  given value, groups them, and returns for each a group of ids with the corresponding id.**Autocomplete Parameters**,**Filter Parameters** and **Pagination Parameters** can be used to filter the list.
-- POST /modell/filter/content/equals/value/asList - finds all entities that equals a given body content object. **Pagination Parameters** can be applied.
+  given value, groups them, and returns for each a group of ids with the corresponding id.**Autocomplete Parameters**,*
+  *Filter Parameters** and **Pagination Parameters** can be used to filter the list.
+- POST /modell/filter/content/equals/value/asList - finds all entities that equals a given body content object. *
+  *Pagination Parameters** can be applied.
 - POST /modell/filter/content/in/values/asList - finds all entities that are in a given body content list of given
   values. **Pagination Parameters** can be applied.
 - POST /modell/ - inserts a new entity in the database.
@@ -117,17 +125,24 @@ For the **Modell** entity the following REST services are available :
 
 **Pagination Parameters**
 
-For every request returning a list items with a variable count two parameters can be used for pagination or simply to limit the result count.
-- firstResult - position of the first result, numbered from 0. If unspecified, it defaults to 0 or it can be configured using the [ResourceServiceConfig](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/resourceServiceBase/ResourceServiceConfig.java)
-- maxResults - maximum number of results to retrieve.  If unspecified, it defaults to 256 or it can be configured using the [ResourceServiceConfig](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/resourceServiceBase/ResourceServiceConfig.java)
-Examples:
+For every request returning a list items with a variable count two parameters can be used for pagination or simply to
+limit the result count.
+
+- firstResult - position of the first result, numbered from 0. If unspecified, it defaults to 0 or it can be configured
+  using
+  the [ResourceServiceConfig](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/resourceServiceBase/ResourceServiceConfig.java)
+- maxResults - maximum number of results to retrieve. If unspecified, it defaults to 256 or it can be configured using
+  the [ResourceServiceConfig](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/resourceServiceBase/ResourceServiceConfig.java)
+  Examples:
 - GET /modell/all/asList?firstResult=0&maxResults=100 - return a maximum 100 results list.
 - GET /modell/all/asList?firstResult=40&maxResults=10 - returns the page 5 out of a 10 per page sequence.
 
 **Filter Parameters**
 
-When using filter parameters the query can be appended with column based values to filter for. Also orderBy parameters can be added.
+When using filter parameters the query can be appended with column based values to filter for. Also orderBy parameters
+can be added.
 Examples:
+
 - GET /modell/all/asList?number=10 - returns all the models that have number 10
 - GET /modell/all/asList?number=10&number=12 - returns all the models that have number 10 or 12
 - GET /modell/all/asList?orderBy=number - returns all the models, ordered by number
@@ -136,9 +151,12 @@ Examples:
 **Autocomplete Parameters**
 
 When using autocomplete type Queries two parameters come into action:
-- cut - the minimum character input count for the query to produce results. If unspecified, it defaults to 3 or it can be configured using the [ResourceServiceConfig](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/resourceServiceBase/ResourceServiceConfig.java)  
-- maxResults - maximum number of results to retrieve.  If unspecified, it defaults to 16 or it can be configured using the [ResourceServiceConfig](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/resourceServiceBase/ResourceServiceConfig.java)
 
+- cut - the minimum character input count for the query to produce results. If unspecified, it defaults to 3 or it can
+  be configured using
+  the [ResourceServiceConfig](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/resourceServiceBase/ResourceServiceConfig.java)
+- maxResults - maximum number of results to retrieve. If unspecified, it defaults to 16 or it can be configured using
+  the [ResourceServiceConfig](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/resourceServiceBase/ResourceServiceConfig.java)
 
 ### Updating
 
@@ -156,7 +174,8 @@ When used on the class, all fields will be updated, except the ones annotated
 with [@Update.excluded](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/Update.java)
 annotation.
 
-If a field is not annotated (or excluded), it will not participate in the update process. That is general the case for the id field
+If a field is not annotated (or excluded), it will not participate in the update process. That is general the case for
+the id field
 and for our last field in the example (age).
 
 By default, during the update the value can not be set to null, so if a null value is received, it will be skipped.
@@ -164,13 +183,15 @@ Exception can be enforced with @Update(dynamic = false) but only when @NotNull i
 This is only recommended to be used when the update source transfer object is always complete.
 
 Every entity participating in this update process must implement
-the [SelfTransferObject](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/SelfTransferObject.java) interface.
+the [SelfTransferObject](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/SelfTransferObject.java)
+interface.
 The root entity must also implement
-the [PrimaryKey](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/dataAccessBase/PrimaryKey.java) interface and provide a
+the [PrimaryKey](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/dataAccessBase/PrimaryKey.java)
+interface and provide a
 unique id field.
 If the primary key of the table is composed of several database
 columns, [@EmbeddedId](https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/embeddedid)
-must be used.
+can be used.
 
 ### Data Access
 
@@ -284,10 +305,6 @@ public class ModellResourceServiceTest extends AbstractResourceServiceImplTest<M
     private static final List<Modell> updateData;
 
     static {
-        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-    }
-
-    static {
         producer = Producer.ofClass(Modell.class)
                            .withList(LinkedList::new)
                            .withMap(LinkedHashMap::new)
@@ -298,10 +315,11 @@ public class ModellResourceServiceTest extends AbstractResourceServiceImplTest<M
 
     public ModellResourceServiceTest() {
         super(Modell.class, //
-              path, //
-              insertData, //
-              updateData,
-              stringField); //
+                path, //
+                insertData, //
+                updateData, //
+                stringField,//
+                producer); //
     }
 }
 
@@ -408,17 +426,17 @@ Here ist an example of the generated files:
 
 ## Requirements
 
-The library works with Java 11+, Quarkus 3.4.3+, JPA 2+
+The library works with Java 17+, Quarkus 3.6.7+, JPA 2+
 
 ## Installation
 
-Simply add  `io.github.agache41:generic-rest-jpa.version` dependency to your project.
+Simply add  `io.github.agache41:quarkus-rest-contract.version` dependency to your project.
 
 The current version today at sunset:
 
 ```xml
 
-<generic-rest-jpa.version>0.2.7</generic-rest-jpa.version>
+<quarkus-rest-contract.version>1.0.0</quarkus-rest-contract.version>
 ```
 
 The dependency for the main jar:
@@ -426,9 +444,9 @@ The dependency for the main jar:
 ```xml
 
 <dependency>
-    <groupId>io.github.agache41</groupId>
-    <artifactId>generic-rest-jpa</artifactId>
-    <version>${generic-rest-jpa.version}</version>
+  <groupId>io.github.agache41</groupId>
+  <artifactId>quarkus-rest-contract</artifactId>
+  <version>${quarkus-rest-contract.version}</version>
 </dependency>
 ```
 
@@ -438,8 +456,8 @@ For the test context the tests-classified jar is needed:
 
 <dependency>
     <groupId>io.github.agache41</groupId>
-    <artifactId>generic-rest-jpa</artifactId>
-    <version>${generic-rest-jpa.version}</version>
+    <artifactId>quarkus-rest-contract</artifactId>
+    <version>${quarkus-rest-contract.version}</version>
     <classifier>tests</classifier>
     <type>test-jar</type>
     <scope>test</scope>
@@ -466,36 +484,42 @@ and [JbossLogging](https://github.com/jboss-logging/jboss-logging) and are not t
 ```xml
 
 <dependencies>
-    <dependency>
-        <groupId>jakarta.enterprise</groupId>
-        <artifactId>jakarta.enterprise.cdi-api</artifactId>
-        <version>4.0.1</version>
-        <scope>provided</scope>
-    </dependency>
-    <dependency>
-        <groupId>jakarta.persistence</groupId>
-        <artifactId>jakarta.persistence-api</artifactId>
-        <version>3.1.0</version>
-        <scope>provided</scope>
-    </dependency>
-    <dependency>
-        <groupId>jakarta.ws.rs</groupId>
-        <artifactId>jakarta.ws.rs-api</artifactId>
-        <version>3.1.0</version>
-        <scope>provided</scope>
-    </dependency>
-    <dependency>
-        <groupId>jakarta.validation</groupId>
-        <artifactId>jakarta.validation-api</artifactId>
-        <version>3.0.2</version>
-        <scope>provided</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.jboss.logging</groupId>
-        <artifactId>jboss-logging</artifactId>
-        <version>3.5.3.Final</version>
-        <scope>provided</scope>
-    </dependency>
+  <dependency>
+    <groupId>io.github.agache41</groupId>
+    <artifactId>rest-contract-core</artifactId>
+    <version>1.0.0</version>
+    <scope>compile</scope>
+  </dependency>
+  <dependency>
+    <groupId>jakarta.enterprise</groupId>
+    <artifactId>jakarta.enterprise.cdi-api</artifactId>
+    <version>4.0.1</version>
+    <scope>provided</scope>
+  </dependency>
+  <dependency>
+    <groupId>jakarta.persistence</groupId>
+    <artifactId>jakarta.persistence-api</artifactId>
+    <version>3.1.0</version>
+    <scope>provided</scope>
+  </dependency>
+  <dependency>
+    <groupId>jakarta.ws.rs</groupId>
+    <artifactId>jakarta.ws.rs-api</artifactId>
+    <version>3.1.0</version>
+    <scope>provided</scope>
+  </dependency>
+  <dependency>
+    <groupId>jakarta.validation</groupId>
+    <artifactId>jakarta.validation-api</artifactId>
+    <version>3.0.2</version>
+    <scope>provided</scope>
+  </dependency>
+  <dependency>
+    <groupId>org.jboss.logging</groupId>
+    <artifactId>jboss-logging</artifactId>
+    <version>3.5.3.Final</version>
+    <scope>provided</scope>
+  </dependency>
 </dependencies>
 ```
 
