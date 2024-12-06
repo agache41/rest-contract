@@ -1,9 +1,9 @@
-# Generic REST JPA
+# REST Contract
 
-Generic REST Resources Service API and Data Access over JPA for JEE / Quarkus
+REST Contract API and Data Access over JPA for Quarkus / JEE
 
-**Generic REST JPA** is a [JEE](https://en.wikipedia.org/wiki/Jakarta_EE) library targeted on
-creating generic Resource Services and Data Access Layers on top
+**REST Contract** is a [JEE](https://en.wikipedia.org/wiki/Jakarta_EE) library targeted on
+creating generic REST Resource Services and Data Access Layers on top
 of [JPA](https://en.wikipedia.org/wiki/Jakarta_Persistence)
 and [CDI](https://docs.oracle.com/javaee/6/tutorial/doc/giwhl.html).
 It develops [REST](https://en.wikipedia.org/wiki/REST) Services starting from
@@ -42,17 +42,13 @@ Let's start with a database table named Modell and the associated JPA Entity.
 ### Entity
 
 Let the **entity** implement
-the [PrimaryKey](src/main/java/io/github/agache41/rest/contract/dataAccess/PrimaryKey.java) and
-the [Updatable](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/Updatable.java)
-
-interface :
-
+the [PrimaryKey](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/dataAccessBase/PrimaryKey.java) and
+the [SelfTransferObject](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/SelfTransferObject.java) interfaces :
 ```java
-
 @Data
 @NoArgsConstructor
 @Entity
-public class Modell implements PrimaryKey<Long>, Updatable<Modell> {
+public class Modell implements PrimaryKey<Long>, SelfTransferObject<Modell> {
 
     @Id
     @NotNull
@@ -62,10 +58,10 @@ public class Modell implements PrimaryKey<Long>, Updatable<Modell> {
     @Update
     private String name;
 
-    @Update(notNull = false)
+    @Update(dynamic = false)
     private String street;
 
-    @Update(notNull = false)
+    @Update(dynamic = false)
     private Integer number;
 
     @EqualsAndHashCode.Exclude
@@ -79,13 +75,13 @@ Notice the used @Data annotation from [Lombok](https://projectlombok.org/).
 ### Resource Service
 
 Extend your **resource service**
-from [AbstractResourceServiceImpl](src/main/java/io/github/agache41/rest/contract/resourceService/AbstractResourceServiceImpl.java):
+from [AbstractResourceServiceImpl](../quarkus-rest-contract/src/main/java/io/github/agache41/rest/contract/resourceService/AbstractResourceServiceImpl.java):
 
 ```java
 
 @Path("/modell")
 @Transactional
-public class ModellResourceService extends AbstractResourceServiceImpl<Modell, Long> {
+public class ModellResourceService extends AbstractResourceServiceImpl<Modell, Modell, Long>{
 }
 ```
 
@@ -94,30 +90,55 @@ and ... you're pretty much done.
 For the **Modell** entity the following REST services are available :
 
 - GET /modell/{id} - finds and returns the corresponding entity for the given path id.
-- POST /modell/byId - finds and returns the corresponding entity for the given body id.
-- GET /modell/all/asList - returns all the entities for the given table.
-- GET /modell/byIds/{ids}/asList - finds and returns the corresponding entity for the given path list of id's.
-- POST /modell/byIds/asList - finds and returns the corresponding entity for the given list of body id's.
+- POST /modell/byId - finds and returns the corresponding entity for the given body id using POST.
+- GET /modell/all/asList - returns all the entities for the given table.**Filter Parameters** and **Pagination Parameters** can be used to filter the list. 
+- GET /modell/byIds/{ids}/asList - finds and returns the corresponding entity for the given list of id's.
+- POST /modell/byIds/asList - finds and returns the corresponding entity for the given list of id's in the body using POST.
 - GET /modell/filter/{stringField}/equals/{value}/asList - finds all entities whose value in a specified string field is
-  equal to the given value.
+  equal to the given value. **Pagination Parameters** can be applied.
 - GET /modell/filter/{stringField}/like/{value}/asList - finds all entities whose value in a specified field is like the
-  given path value.
+  given path value. **Pagination Parameters** can be applied.
 - GET /modell/filter/{stringField}/in/{values}/asList - finds all entities whose value in a specified field is in the
-  given path values list.
+  given path values list. **Pagination Parameters** can be applied.
 - GET /modell/autocomplete/{stringField}/like/{value}/asSortedSet - finds all values in a field whose value is like the
-  given value.
+  given value.**Autocomplete Parameters**,**Filter Parameters** and **Pagination Parameters** can be applied.
 - GET /modell/autocompleteIds/{stringField}/like/{value}/asList - finds all entities whose value in a field is like the
-  given value, groups them, and returns for each the corresponding id.
-- POST /modell/filter/content/equals/value/asList - finds all entities that equals a given body content object.
+  given value, groups them, and returns for each a group of ids with the corresponding id.**Autocomplete Parameters**,**Filter Parameters** and **Pagination Parameters** can be used to filter the list.
+- POST /modell/filter/content/equals/value/asList - finds all entities that equals a given body content object. **Pagination Parameters** can be applied.
 - POST /modell/filter/content/in/values/asList - finds all entities that are in a given body content list of given
-  values.
-- POST /modell/ - inserts a new entity in the database or updates an existing one.
-- POST /modell/list/asList - inserts a list of new entities in the database or updates the existing ones.
+  values. **Pagination Parameters** can be applied.
+- POST /modell/ - inserts a new entity in the database.
+- POST /modell/list/asList - inserts a list of new entities in the database.
 - PUT /modell/ - updates an existing entity by id.
 - PUT /modell/list/asList - updates existing entities by id.
 - DELETE /modell/{id}/ - deletes the entity for the given id.
 - DELETE /modell/byIds - deletes all the entities for the given ids in the request body
 - DELETE /modell/byIds/{ids} - deletes all the entities for the given ids.
+
+**Pagination Parameters**
+
+For every request returning a list items with a variable count two parameters can be used for pagination or simply to limit the result count.
+- firstResult - position of the first result, numbered from 0. If unspecified, it defaults to 0 or it can be configured using the [ResourceServiceConfig](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/resourceServiceBase/ResourceServiceConfig.java)
+- maxResults - maximum number of results to retrieve.  If unspecified, it defaults to 256 or it can be configured using the [ResourceServiceConfig](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/resourceServiceBase/ResourceServiceConfig.java)
+Examples:
+- GET /modell/all/asList?firstResult=0&maxResults=100 - return a maximum 100 results list.
+- GET /modell/all/asList?firstResult=40&maxResults=10 - returns the page 5 out of a 10 per page sequence.
+
+**Filter Parameters**
+
+When using filter parameters the query can be appended with column based values to filter for. Also orderBy parameters can be added.
+Examples:
+- GET /modell/all/asList?number=10 - returns all the models that have number 10
+- GET /modell/all/asList?number=10&number=12 - returns all the models that have number 10 or 12
+- GET /modell/all/asList?orderBy=number - returns all the models, ordered by number
+- GET /modell/all/asList?orderBy=number desc - returns all the models, ordered by number descending order
+
+**Autocomplete Parameters**
+
+When using autocomplete type Queries two parameters come into action:
+- cut - the minimum character input count for the query to produce results. If unspecified, it defaults to 3 or it can be configured using the [ResourceServiceConfig](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/resourceServiceBase/ResourceServiceConfig.java)  
+- maxResults - maximum number of results to retrieve.  If unspecified, it defaults to 16 or it can be configured using the [ResourceServiceConfig](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/resourceServiceBase/ResourceServiceConfig.java)
+
 
 ### Updating
 
@@ -127,6 +148,7 @@ annotation do ?
 The Resource Service uses the entity as both [DAO](https://en.wikipedia.org/wiki/Data_access_object)
 and [DTO](https://en.wikipedia.org/wiki/Data_transfer_object). Upon update though it is important to be able to
 configure which fields participate in the update process and how null values impact that.
+The Annotation can be used either on every field or once on the class.
 
 When a field is annotated, it will be updated from the provided source during a PUT or POST operation.
 
@@ -134,17 +156,17 @@ When used on the class, all fields will be updated, except the ones annotated
 with [@Update.excluded](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/Update.java)
 annotation.
 
-If a field is not annotated, it will not participate in the update process. That is general the case for the id field
+If a field is not annotated (or excluded), it will not participate in the update process. That is general the case for the id field
 and for our last field in the example (age).
 
 By default, during the update the value can not be set to null, so if a null value is received, it will be skipped.
-Exception can be enforced with @Update(notNull = false) but only when @NotNull is not used on the field.
+Exception can be enforced with @Update(dynamic = false) but only when @NotNull is not used on the field.
 This is only recommended to be used when the update source transfer object is always complete.
 
 Every entity participating in this update process must implement
-the [Updatable](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/Updatable.java) interface.
+the [SelfTransferObject](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/SelfTransferObject.java) interface.
 The root entity must also implement
-the [PrimaryKey](src/main/java/io/github/agache41/rest/contract/dataAccess/PrimaryKey.java) interface and provide a
+the [PrimaryKey](../rest-contract-core/src/main/java/io/github/agache41/rest/contract/dataAccessBase/PrimaryKey.java) interface and provide a
 unique id field.
 If the primary key of the table is composed of several database
 columns, [@EmbeddedId](https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/embeddedid)
