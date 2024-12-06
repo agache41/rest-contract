@@ -23,9 +23,8 @@ package io.github.agache41.rest.contract.update;
  * @param <ENTITY> the type parameter
  */
 public interface SelfTransferObject<ENTITY extends TransferObject<ENTITY, ENTITY>> extends TransferObject<ENTITY, ENTITY> {
-// todo: clarify why it fails
+//    not yet fully supported
 //    @Override
-//    @Transient
 //    default ENTITY create(final ENTITY entity) {
 //        return (ENTITY) this;
 //    }

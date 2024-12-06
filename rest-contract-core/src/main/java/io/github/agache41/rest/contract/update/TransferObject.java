@@ -62,7 +62,7 @@ public interface TransferObject<TO extends TransferObject<TO, ENTITY>, ENTITY> {
 
     /**
      * Updates the fields in TO from the entity.
-     * Is to be used in GET - reder request
+     * Is to be used in GET - render request
      *
      * @param entity  the entity
      * @param context the context
