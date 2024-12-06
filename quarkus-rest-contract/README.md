@@ -85,7 +85,7 @@ public class ModellResourceService extends AbstractResourceServiceImpl<Modell, M
 }
 ```
 
-and ... you're pretty much done.
+and ... you're pretty much done. More Infos [here](https://quarkus.io/guides/rest-json).
 
 For the **Modell** entity the following REST services are available :
 

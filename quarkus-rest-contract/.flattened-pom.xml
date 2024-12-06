@@ -20,12 +20,15 @@
   <groupId>io.github.agache41</groupId>
   <artifactId>quarkus-rest-contract</artifactId>
   <version>1.0.0</version>
-  <name>Rest Contract API and Data Access over JPA for JEE / Quarkus</name>
-  <description>Generic REST JPA is a JEE library targeted on creating generic Resource Services and Data Access Layers on top
-        of JPA and CDI.
-        It develops REST Services starting from the CRUD pattern and extends it by adding frequently needed methods to
-        each domain entity.</description>
-  <url>https://github.com/agache41/generic-rest-jpa</url>
+  <name>REST Contract API and Data Access over JPA for Quarkus / JEE</name>
+  <description>REST Contract is a JEE library targeted on creating generic REST Resource Services and Data Access Layers on top of JPA and CDI.
+        It develops REST Services starting from the CRUD pattern and extends it by adding frequently needed methods to each domain entity.
+        The idea behind it is that just by adding these generic services on each entity of your database you get a general 70 - 90% implementation of the services needed by the application,
+        thus allowing the developer to focus just on the complex cases, in other words removing as much as "boilerplate code" as possible.
+        And that comes with already developed test units that bring 100% coverage to all provided service methods.
+        The library can be very easily extended to add more functionality by reusing and extending the provided components.
+        Initially designed for Quarkus it can also be used in any JEE / CDI / JPA compliant environment.</description>
+  <url>https://github.com/agache41/rest-contract/tree/main/quarkus-rest-contract</url>
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
@@ -39,9 +42,9 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:git:https://github.com/agache41/generic-rest-jpa.git</connection>
-    <developerConnection>scm:git:https://github.com/agache41/generic-rest-jpa.git</developerConnection>
-    <url>https://github.com/agache41/generic-rest-jpa</url>
+    <connection>scm:git:https://github.com/agache41/rest-contract.git</connection>
+    <developerConnection>scm:git:https://github.com/agache41/rest-contract.git</developerConnection>
+    <url>https://github.com/agache41/rest-contract.git</url>
   </scm>
   <dependencies>
     <dependency>
