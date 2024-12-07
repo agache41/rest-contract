@@ -18,14 +18,19 @@
 package model.spring.resourceService;
 
 
-import io.github.agache41.rest.contract.dataAccess.DataAccess;
 import io.github.agache41.rest.contract.dataAccess.DataBinder;
 import io.github.agache41.rest.contract.entities.Modell;
 import io.github.agache41.rest.contract.resourceService.AbstractResourceServiceImpl;
 import lombok.Getter;
+import model.spring.dataAccess.ModellDataAccess;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Getter
 @RestController
@@ -34,9 +39,20 @@ public class ModellResourceService extends AbstractResourceServiceImpl<Modell, M
 
 
     @Autowired
-    protected DataAccess<Modell, Long> dataAccess;
+    protected ModellDataAccess dataAccess;
 
 
     @Autowired
     protected DataBinder<Modell, Modell, Long> dataBinder;
+
+
+    /**
+     * Finds and returns all the models over 100
+     *
+     * @return the models list.
+     */
+    @GetMapping(path = "/over/100", produces = APPLICATION_JSON_VALUE)
+    public List<Modell> getOver100AsList() {
+        return getDataAccess().getAllModellsOver100();
+    }
 }
