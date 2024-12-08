@@ -136,6 +136,29 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>7.10.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/openapi/api/openapi.yaml</inputSpec>
+                            <generatorName>typescript-angular</generatorName>
+                            <configOptions>
+                                <sourceFolder>src/gen/java/main</sourceFolder>
+                            </configOptions>
+                            <output>${project.basedir}/openapi/generated</output>
+                            <verbose>false</verbose>
+                            <cleanupOutput>true</cleanupOutput>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <profiles>
@@ -169,43 +192,6 @@
                                         <java.util.logging.manager>org.jboss.logmanager.LogManager
                                         </java.util.logging.manager>
                                     </systemPropertyVariables>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>generate</id>
-            <activation>
-                <property>
-                    <name>generate</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.openapitools</groupId>
-                        <artifactId>openapi-generator-maven-plugin</artifactId>
-                        <!-- RELEASE_VERSION -->
-                        <version>7.0.1</version>
-                        <!-- /RELEASE_VERSION -->
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>generate</goal>
-                                </goals>
-                                <configuration>
-                                    <inputSpec>${project.basedir}/openapi/api/openapi.yaml</inputSpec>
-                                    <generatorName>typescript-angular</generatorName>
-                                    <configOptions>
-                                        <sourceFolder>src/gen/java/main</sourceFolder>
-                                    </configOptions>
-                                    <output>${project.basedir}/openapi/generated</output>
-                                    <verbose>false</verbose>
-                                    <cleanupOutput>true</cleanupOutput>
                                 </configuration>
                             </execution>
                         </executions>

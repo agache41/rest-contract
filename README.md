@@ -3,11 +3,11 @@
 REST Contract API and Data Access over JPA for Quarkus(JEE) or SpringBoot
 
 **REST Contract** is a [Java](https://en.wikipedia.org/wiki/Java_(programming_language)) library targeted on
-creating generic REST Resource Services and Data Access Layers on top
+creating generic [REST](https://en.wikipedia.org/wiki/REST) Resource Services and Data Access Layers on top
 of [JPA](https://en.wikipedia.org/wiki/Jakarta_Persistence)
 using [CDI](https://docs.oracle.com/javaee/6/tutorial/doc/giwhl.html) or [Spring](https://spring.io/).
 
-It develops [REST](https://en.wikipedia.org/wiki/REST) Services starting from
+It develops REST Services starting from
 the [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) pattern and extends it by adding frequently
 needed methods to each domain entity.
 
@@ -189,33 +189,51 @@ annotation do ?
 
 The Resource Service uses the entity as both [DAO](https://en.wikipedia.org/wiki/Data_access_object)
 and [DTO](https://en.wikipedia.org/wiki/Data_transfer_object). Upon update though it is important to be able to
-configure which fields participate in the update process and how null values impact that.
-The Annotation can be used either on every field or once on the class.
+configure which fields participate in the update process and how null values impact that. The  [@Update](rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/Update.java) annotation marks the fields accordingly. 
+#### Using @Update
+The Annotation can be used on every field or only once on the class.
 
 When a field is annotated, it will be updated from the provided source during a PUT or POST operation.
 
-When used on the class, all fields will be updated, except the ones annotated
-with [@Update.excluded](rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/Update.java)
-annotation.
+When used on the class, all fields will be updated, except the ones annotated with [@Update.excluded](rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/Update.java) annotation.
 
-If a field is not annotated (or excluded), it will not participate in the update process. That is general the case for
-the id field
-and for our last field in the example (age).
+If a field is not annotated (or excluded), it will not participate in the update process. That is for example the case for
+the id field and for our last field in the example (age).
 
-By default, during the update the value can not be set to null, so if a null value is received, it will be skipped.
-Exception can be enforced with @Update(dynamic = false) but only when @NotNull is not used on the field.
-This is only recommended to be used when the update source transfer object is always complete.
+#### Dynamic Update
+A dynamic Update means that during the update process, the request contains only the fields that are to be changed.
+During the dynamic update the value of a field can not be set to null, so if a null value is received, it will be ignored.
+This is the default case using the [@Update](rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/Update.java) annotation, or [@Update](rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/Update.java)(dynamic = true)
 
-Every entity participating in this update process must implement
-the [SelfTransferObject](rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/SelfTransferObject.java)
-interface.
-The root entity must also implement
-the [PrimaryKey](rest-contract-core/src/main/java/io/github/agache41/rest/contract/dataAccessBase/PrimaryKey.java)
-interface and provide a
-unique id field.
-If the primary key of the table is composed of several database
-columns, [@EmbeddedId](https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/embeddedid)
-can be used.
+If we decide for a field to not use dynamic update, this can be enforced with [@Update](rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/Update.java)(dynamic = false).
+For non-nullable fields this can lead though, that the field value is actually set to null, leading to a runtime-exception.
+So the actual value of the field must be always received in the Request.
+
+As a best practice the non-dynamic update is generally recommended to be used on all the fields of the entity.
+Then the update source transfer object must be always complete.
+
+#### Child Entities
+One-to-one relations pointing to a child-entity can also participate in the update process.
+The @Update entity must be used on the child-entity field.
+The child entity must implement the required interfaces and its fields have to be marked for the update accordingly with the @Update annotation. 
+
+#### Updating collections and maps
+One-to-many relations and @ElementCollection can also participate in the update process and the previous rules apply.
+For non-entity collections and maps the update will be applied completely, the current content will be removed and the new content from the request will be inserted.
+For child-entity collections and maps the algorithm is more complex:
+- the child-entities having the same id in the request and in the database will each be updated with its counterpart matching the id.
+- the child-entities that are missing (do not have an id in the request) will be deleted.
+- the child-entities having a new id (or no id for autogenerated ids) will be inserted.
+- partial inserts or updates are not available. So is also the case for targeted deletes. 
+- for the algorithm to work correctly, all collections and maps must be initialized accordingly and nulls must be avoided. 
+- for dynamic updates if the field in the incoming request is null, then no changes will be done to the collection.  
+
+The best practice here is though to update these collection entities through a dedicated REST service belonging to the child-entity.   
+
+#### Interfaces
+Every entity participating in the update process must implement the [SelfTransferObject](rest-contract-core/src/main/java/io/github/agache41/rest/contract/update/SelfTransferObject.java) interface.
+The entity must also implement the [PrimaryKey](rest-contract-core/src/main/java/io/github/agache41/rest/contract/dataAccessBase/PrimaryKey.java) interface and provide a unique id field.
+If the primary key of the table is composed of several database columns, [@EmbeddedId](https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/embeddedid) can be used like [here](rest-contract-core/src/test/java/io/github/agache41/rest/contract/entities/EmbeddedIdModell.java).
 
 ### Data Access
 
@@ -290,8 +308,9 @@ public class ModellDataAccess extends DataAccess<Modell, Long> {
 
 ### Resource Service again
 
-Now let's use this newly ModellDataAccess in our Resource Service:
-in Quarkus:
+Now let's use this newly ModellDataAccess in our Resource Service.
+
+in [Quarkus](quarkus-integration-model/src/main/java/modell/quarkus/resourceService/ModellResourceService.java):
 ```java
 
 @Getter
@@ -316,7 +335,7 @@ public class ModellResourceService extends AbstractResourceServiceImpl<Modell, L
 }
 
 ```
-or SpringBoot:
+or [SpringBoot](spring-integration-model/src/main/java/model/spring/resourceService/ModellResourceService.java):
 ```java
 
 @Getter
@@ -357,9 +376,9 @@ with [Lombok](https://projectlombok.org/)
 So far so good. But how can I be sure that the generated services do really work on my platform or with my entities ?
 Not to mention that there are already 17 methods in the service, and that goes for each entity.
 
-Let's start by creating the **TestUnit** by
-extending  [AbstractResourceServiceImplTest](quarkus-rest-contract/src/main/java/io/github/agache41/rest/contract/resourceService/AbstractResourceServiceImpl.java).
-in Quarkus:
+Let's start by creating the **TestUnit** by extending  [AbstractResourceServiceImplTest](quarkus-rest-contract/src/main/java/io/github/agache41/rest/contract/resourceService/AbstractResourceServiceImpl.java).
+
+in [Quarkus](quarkus-integration-model/src/test/java/modell/quarkus/resourceService/ModellResourceServiceTest.java):
 ```java
 
 @QuarkusTest
@@ -393,7 +412,39 @@ public class ModellResourceServiceTest extends AbstractResourceServiceImplTest<M
 
 ```
 
-Notice the use of the [Producer](src/test/java/io/github/agache41/generic/rest/jpa/producer/Producer.java) class that
+or [Springboot](spring-integration-model/src/test/java/model/spring/resourceService/ModellResourceServiceTest.java):
+```java
+@SpringBootTest(webEnvironment = DEFINED_PORT)
+@Import(RestContractCoreTestPersistenceConfiguration.class)
+public class ModellResourceServiceTest extends AbstractResourceServiceImplTest<Modell, Long> {
+
+  static final String path = "/modell";
+  private static final String stringField = "stringVal";
+  private static final Producer<Modell> producer;
+  private static final List<Modell> insertData;
+  private static final List<Modell> updateData;
+
+  static {
+    producer = Producer.ofClass(Modell.class)
+                       .withList(LinkedList::new)
+                       .withMap(LinkedHashMap::new)
+                       .withSize(Config.collectionSize);
+    insertData = producer.produceList();
+    updateData = producer.changeList(insertData);
+  }
+
+  public ModellResourceServiceTest() {
+    super(Modell.class, //
+            path, //
+            insertData, //
+            updateData, //
+            stringField,//
+            producer); //
+  }
+}
+```
+
+Notice the use of the [Producer](rest-contract-core/src/main/java/io/github/agache41/rest/contract/producer/Producer.java) class that
 generates automatically complete lists with instance objects for tests.
 
 The test goes through all the provided methods :
@@ -429,58 +480,44 @@ Notice the use of the @Order(1000) annotation, this will ensure the correct orde
 
 ### Generating Front End model classes and services.
 
-My application grows steadily and every day I add new entities. It's time to present the resource services to my clients
-in a
-ready to code manner.
-The smallrye-openapi open API setting ensures the generation of the open API yaml file.
+My application grows steadily and every day I add new entities. It's time to present the resource services to my clients in a ready to code manner.
 
+For Quarkus the smallrye-openapi dependency (`io.quarkus:quarkus-smallrye-openapi`) ensures the generation of the open API yaml and json file.
+This can be further customized in the properties [file](quarkus-integration-model/src/main/resources/application.properties).
 ```properties
 quarkus.smallrye-openapi.store-schema-directory=openapi/api
 quarkus.smallrye-openapi.open-api-version=3.0.3
 ```
+For Springboot the springdoc-openapi dependency (`org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0`) ensures the generation of the open API json file.
+This can be further customized in the pom [file](spring-integration-model/pom.xml)
 
 Then the `org.openapitools:openapi-generator-maven-plugin:7.0.1` plugin will generate the classes for the front end.
 Here is an example for [Angular](https://angular.io/) using [Typescript](https://www.typescriptlang.org/).
 
 ```xml
-
-<profile>
-    <id>generate</id>
-    <activation>
-        <property>
-            <name>generate</name>
-        </property>
-    </activation>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.openapitools</groupId>
-                <artifactId>openapi-generator-maven-plugin</artifactId>
-                <!-- RELEASE_VERSION -->
-                <version>7.0.1</version>
-                <!-- /RELEASE_VERSION -->
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.basedir}/openapi/api/openapi.yaml</inputSpec>
-                            <generatorName>typescript-angular</generatorName>
-                            <configOptions>
-                                <sourceFolder>src/gen/java/main</sourceFolder>
-                            </configOptions>
-                            <output>${project.basedir}/openapi/generated</output>
-                            <verbose>true</verbose>
-                            <cleanupOutput>true</cleanupOutput>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-</profile>
+<plugin>
+  <groupId>org.openapitools</groupId>
+  <artifactId>openapi-generator-maven-plugin</artifactId>
+  <version>7.10.0</version>
+  <executions>
+    <execution>
+      <phase>package</phase>
+      <goals>
+        <goal>generate</goal>
+      </goals>
+      <configuration>
+        <inputSpec>${project.basedir}/openapi/api/openapi.json</inputSpec>
+        <generatorName>typescript-angular</generatorName>
+        <configOptions>
+          <sourceFolder>src/gen/java/main</sourceFolder>
+        </configOptions>
+        <output>${project.basedir}/openapi/generated</output>
+        <verbose>false</verbose>
+        <cleanupOutput>true</cleanupOutput>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
 ```
 
 Here ist an example of the generated files:
@@ -489,8 +526,7 @@ Here ist an example of the generated files:
 
 ## Demo
 
-А comprehensive example of using the library with JPA database you can find in the *
-*[demo](https://github.com/agache41/modell_quarkus)** module.
+А comprehensive example of using the library you can find in the **[Quarkus Example](quarkus-integration-model)**  or **[Spring Example](spring-integration-model)** module.
 
 ## Requirements
 
