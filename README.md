@@ -530,19 +530,18 @@ Here ist an example of the generated files:
 
 ## Requirements
 
-The library works with Java 17+, Quarkus 3.6.7+, JPA 2+
+The library works with Java 17+, Quarkus 3.6.7+, Spring Boot 3.0+, JPA 2+
 
 ## Installation
 
-Simply add  `io.github.agache41:quarkus-rest-contract.version` dependency to your project.
+Simply add  `io.github.agache41:quarkus-rest-contract:version` or `io.github.agache41:spring-rest-contract:version` dependency to your project.
 
 The current version today at sunset:
 
 ```xml
 
-<quarkus-rest-contract.version>1.0.0</quarkus-rest-contract.version>
+<version>1.0.0</version>
 ```
-
 The dependency for the main jar:
 
 ```xml
@@ -550,7 +549,16 @@ The dependency for the main jar:
 <dependency>
     <groupId>io.github.agache41</groupId>
     <artifactId>quarkus-rest-contract</artifactId>
-    <version>${quarkus-rest-contract.version}</version>
+    <version>${version}</version>
+</dependency>
+```
+or
+```xml
+
+<dependency>
+    <groupId>io.github.agache41</groupId>
+    <artifactId>spring-rest-contract</artifactId>
+    <version>${version}</version>
 </dependency>
 ```
 
@@ -561,20 +569,31 @@ For the test context the tests-classified jar is needed:
 <dependency>
     <groupId>io.github.agache41</groupId>
     <artifactId>quarkus-rest-contract</artifactId>
-    <version>${quarkus-rest-contract.version}</version>
+    <version>${version}</version>
     <classifier>tests</classifier>
     <type>test-jar</type>
     <scope>test</scope>
 </dependency>
 ```
+or
+```xml
 
+<dependency>
+    <groupId>io.github.agache41</groupId>
+    <artifactId>spring-rest-contract</artifactId>
+    <version>${version}</version>
+    <classifier>tests</classifier>
+    <type>test-jar</type>
+    <scope>test</scope>
+</dependency>
+```
 ## Features
 
 - Easy to install, use and extend.
 - Test coverage provided on the fly.
 - Works with both [Jackson](https://github.com/FasterXML/jackson) and [JSONB](https://javaee.github.io/jsonb-spec/). No
   support yet for reactive mode.
-- Tested with Quarkus 3.6.7.
+- Tested with Quarkus 3.6.7 and Spring Boot 3.4.0
 
 ## Structure
 
