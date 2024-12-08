@@ -142,9 +142,6 @@
                             <publishingServerId>central</publishingServerId>
                             <autoPublish>true</autoPublish>
                             <waitUntil>published</waitUntil>
-                            <!--  Use this to test the deployment -->
-                            <!-- <autoPublish>false</autoPublish> -->
-                            <!-- <waitUntil>validated</waitUntil> -->
                         </configuration>
                     </plugin>
                 </plugins>
@@ -163,7 +160,6 @@
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
-
                             </execution>
                         </executions>
                         <configuration>
@@ -187,5 +183,4 @@
             </build>
         </profile>
     </profiles>
-
 </project>
