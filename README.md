@@ -83,9 +83,9 @@ Notice the used @Data annotation from [Lombok](https://projectlombok.org/).
 ### Resource Service
 
 Extend your **resource service**
-from [AbstractResourceServiceImpl](quarkus-rest-contract/src/main/java/io/github/agache41/rest/contract/resourceService/AbstractResourceServiceImpl.java):
+from [AbstractResourceServiceImpl](quarkus-rest-contract/src/main/java/io/github/agache41/rest/contract/resourceService/AbstractResourceServiceImpl.java).
 
-using Quarkus:
+in [Quarkus](quarkus-integration-model/src/main/java/modell/quarkus/resourceService/ModellResourceService.java):
 
 ```java
 
@@ -94,7 +94,7 @@ public class ModellResourceService extends AbstractResourceServiceImpl<Modell, M
 }
 ```
 
-or SpringBoot:
+or [SpringBoot](spring-integration-model/src/main/java/model/spring/resourceService/ModellResourceService.java):
 
 ```java
 
@@ -223,6 +223,7 @@ Extending the [DAO](https://en.wikipedia.org/wiki/Data_access_object) layer
 
 In complex cases the **Data Access** of the entity must be extended, by adding the new data methods.
 Let's start by extending [DataAccess](src/main/java/io/klebrit/generic/api/dataAccess/DataAccess.java).
+
 in [Quarkus](quarkus-integration-model/src/main/java/modell/quarkus/dataAccess/ModellDataAccess.java):
 
 ```java
