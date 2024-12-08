@@ -20,7 +20,7 @@ jobs:
         uses: s4u/setup-maven-action@v1.11.0
         with:
           java-distribution: 'temurin'
-          java-version: 17.0.22
+          java-version: 17.0.13
           maven-version: 3.9.9
           cache-enabled: 'true'
       - name: Build with Maven
