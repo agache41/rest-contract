@@ -114,7 +114,7 @@
                 </executions>
                 <configuration>
                     <outputFileName>openapi.json</outputFileName>
-                    <outputDir>openapi/api</outputDir>
+                    <outputDir>target/openapi/api</outputDir>
                     <skip>false</skip>
                 </configuration>
             </plugin>
@@ -129,12 +129,12 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/openapi/api/openapi.json</inputSpec>
+                            <inputSpec>${project.basedir}/target/openapi/api/openapi.json</inputSpec>
                             <generatorName>typescript-angular</generatorName>
                             <configOptions>
                                 <sourceFolder>src/gen/java/main</sourceFolder>
                             </configOptions>
-                            <output>${project.basedir}/openapi/generated</output>
+                            <output>${project.basedir}/target/openapi/generated</output>
                             <verbose>false</verbose>
                             <cleanupOutput>true</cleanupOutput>
                         </configuration>

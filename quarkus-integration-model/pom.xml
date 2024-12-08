@@ -147,12 +147,12 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/openapi/api/openapi.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/target/openapi/api/openapi.yaml</inputSpec>
                             <generatorName>typescript-angular</generatorName>
                             <configOptions>
                                 <sourceFolder>src/gen/java/main</sourceFolder>
                             </configOptions>
-                            <output>${project.basedir}/openapi/generated</output>
+                            <output>${project.basedir}/target/openapi/generated</output>
                             <verbose>false</verbose>
                             <cleanupOutput>true</cleanupOutput>
                         </configuration>
