@@ -29,19 +29,19 @@ jobs:
       - name: Build with Maven
         run: mvn -B clean package --file pom.xml
       - name: Deploy rest-contract-core on Maven Central
-        run: mvn -B clean deploy -P test-publish --file ./rest-contract-core/pom.xml
+        run: mvn -B clean deploy -P publish --file ./rest-contract-core/pom.xml
         env:
           SIGN_KEY: ${{ secrets.SIGN_KEY }}
           SIGN_KEY_ID: ${{ secrets.SIGN_KEY_ID }}
           SIGN_KEY_PASS: ${{ secrets.SIGN_KEY_PASS }}
       - name: Deploy quarkus-rest-contract on Maven Central
-        run: mvn -B clean deploy -P test-publish --file ./quarkus-rest-contract/pom.xml
+        run: mvn -B clean deploy -P publish --file ./quarkus-rest-contract/pom.xml
         env:
           SIGN_KEY: ${{ secrets.SIGN_KEY }}
           SIGN_KEY_ID: ${{ secrets.SIGN_KEY_ID }}
           SIGN_KEY_PASS: ${{ secrets.SIGN_KEY_PASS }}
       - name: Deploy spring-rest-contract on Maven Central
-        run: mvn -B clean deploy -P test-publish --file ./spring-rest-contract/pom.xml
+        run: mvn -B clean deploy -P publish --file ./spring-rest-contract/pom.xml
         env:
           SIGN_KEY: ${{ secrets.SIGN_KEY }}
           SIGN_KEY_ID: ${{ secrets.SIGN_KEY_ID }}
