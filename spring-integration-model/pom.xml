@@ -124,7 +124,7 @@
                 <version>7.10.0</version>
                 <executions>
                     <execution>
-                        <phase>package</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
