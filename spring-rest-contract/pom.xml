@@ -113,7 +113,7 @@
     </build>
     <profiles>
         <profile>
-            <id>release</id>
+            <id>publish</id>
             <build>
                 <plugins>
                     <plugin>
@@ -140,7 +140,6 @@
                         <extensions>true</extensions>
                         <configuration>
                             <publishingServerId>central</publishingServerId>
-                            <tokenAuth>true</tokenAuth>
                             <autoPublish>true</autoPublish>
                             <waitUntil>published</waitUntil>
                             <!--  Use this to test the deployment -->
@@ -151,5 +150,42 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>test-publish</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.simplify4u.plugins</groupId>
+                        <artifactId>sign-maven-plugin</artifactId>
+                        <version>1.0.1</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <serverId>sign-key-id</serverId>
+                            <skipNoKey>false</skipNoKey>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.6.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <skipPublishing>true</skipPublishing>
+                            <autoPublish>false</autoPublish>
+                            <waitUntil>validated</waitUntil>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
+
 </project>
